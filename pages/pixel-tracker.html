@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixel de Suivi - Privacy Data Visualizer</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <!-- Header & Navigation -->
+  <header>
+    <nav>
+      <div class="logo">Privacy Data Visualizer</div>
+      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="../index.html">Accueil</a></li>
+        <li><a href="cookies.html">Cookies</a></li>
+        <li><a href="pixel-tracker.html">Pixel Tracker</a></li>
+        <li><a href="politiques.html">Politiques</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+      <!-- Page Header -->
+      <div class="section-header">
+        <h1>📊 Pixel de Suivi</h1>
+        <p class="section-description">
+          Découvrez le fonctionnement des pixels de suivi invisibles utilisés pour tracker
+          les utilisateurs sur le web. <strong>Note :</strong> Aucun tracking réel n'est effectué,
+          il s'agit uniquement d'une démonstration visuelle.
+        </p>
+      </div>
+
+      <!-- Tracking Pixel Demo -->
+      <section class="section">
+        <h2>Pixel de Suivi (Simulation) <span class="badge badge-placeholder">Placeholder</span></h2>
+
+        <div class="card">
+          <div class="flex justify-between align-center mb-md">
+            <div>
+              <h3 class="mb-sm">Image Invisible 1x1</h3>
+              <p class="text-muted" style="margin: 0;">
+                Un pixel de tracking typique est une image transparente de 1x1 pixel
+                chargée depuis un serveur tiers. Son chargement déclenche l'envoi de données.
+              </p>
+            </div>
+            <div style="padding: 2rem; background: var(--background); border: 2px dashed var(--border-dark); border-radius: var(--radius-md);">
+              <div style="width: 1px; height: 1px; background: var(--danger); border: 1px solid var(--text-primary);"></div>
+            </div>
+          </div>
+
+          <div class="placeholder-message mt-md">
+            <div class="placeholder-message-icon">👁️</div>
+            <div class="placeholder-message-text">
+              Pixel de tracking actuellement inactif (placeholder UI uniquement)
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- How it Works -->
+      <section class="section">
+        <h2>Fonctionnement du Pixel de Suivi</h2>
+
+        <div class="cards-grid">
+          <div class="card">
+            <div style="font-size: 2rem; margin-bottom: var(--spacing-sm);">1️⃣</div>
+            <h4>Chargement</h4>
+            <p class="card-description">
+              Lorsque vous visitez une page, le pixel (image 1x1) se charge automatiquement
+              depuis un serveur tiers via une balise <code>&lt;img&gt;</code>.
+            </p>
+          </div>
+
+          <div class="card">
+            <div style="font-size: 2rem; margin-bottom: var(--spacing-sm);">2️⃣</div>
+            <h4>Transmission</h4>
+            <p class="card-description">
+              Le navigateur envoie une requête HTTP vers le serveur, incluant automatiquement
+              des données : URL visitée, user-agent, IP, cookies, etc.
+            </p>
+          </div>
+
+          <div class="card">
+            <div style="font-size: 2rem; margin-bottom: var(--spacing-sm);">3️⃣</div>
+            <h4>Enregistrement</h4>
+            <p class="card-description">
+              Le serveur tiers enregistre ces informations pour créer un profil utilisateur,
+              tracker votre navigation cross-site, et personnaliser la publicité.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Events Log -->
+      <section class="section">
+        <h2>Journal d'Événements <span class="badge badge-placeholder">Placeholder</span></h2>
+        <p class="text-muted mb-md">
+          Simulation des événements générés par un pixel de tracking (données statiques).
+        </p>
+
+        <div class="console">
+          <div class="console-header">
+            <span class="console-title">ÉVÉNEMENTS DE TRACKING (UI)</span>
+          </div>
+          <div class="console-line">
+            <span class="timestamp">[14:23:10]</span>
+            <span class="event">PIXEL_LOAD</span> - pixel.png chargé depuis tracker.example.com
+          </div>
+          <div class="console-line">
+            <span class="timestamp">[14:23:10]</span>
+            <span class="event">DATA_SENT</span> - page_url: <span class="value">https://example.com/produit-123</span>
+          </div>
+          <div class="console-line">
+            <span class="timestamp">[14:23:10]</span>
+            <span class="event">DATA_SENT</span> - user_agent: <span class="value">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)...</span>
+          </div>
+          <div class="console-line">
+            <span class="timestamp">[14:23:10]</span>
+            <span class="event">DATA_SENT</span> - referrer: <span class="value">https://google.com/search?q=produit</span>
+          </div>
+          <div class="console-line">
+            <span class="timestamp">[14:23:10]</span>
+            <span class="event">DATA_SENT</span> - user_id: <span class="value">uid_abc123</span> (depuis cookie)
+          </div>
+          <div class="console-line">
+            <span class="timestamp">[14:23:10]</span>
+            <span class="event">RESPONSE</span> - 200 OK - Données enregistrées
+          </div>
+          <div class="console-line">
+            <span class="timestamp">[14:23:15]</span>
+            <span class="event">BEHAVIOR</span> - Scroll détecté: <span class="value">45%</span>
+          </div>
+          <div class="console-line">
+            <span class="timestamp">[14:23:20]</span>
+            <span class="event">BEHAVIOR</span> - Temps sur la page: <span class="value">10s</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Data Collected -->
+      <section class="section">
+        <h2>Données Potentiellement Collectées <span class="badge badge-placeholder">Placeholder</span></h2>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Type de Donnée</th>
+              <th>Exemple de Valeur</th>
+              <th>Source</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>URL de la page</td>
+              <td><code>https://example.com/produit-123</code></td>
+              <td>Requête HTTP</td>
+            </tr>
+            <tr>
+              <td>Referrer</td>
+              <td><code>https://google.com/search?q=produit</code></td>
+              <td>En-tête HTTP</td>
+            </tr>
+            <tr>
+              <td>User-Agent</td>
+              <td><code>Mozilla/5.0 (Mac...)</code></td>
+              <td>En-tête HTTP</td>
+            </tr>
+            <tr>
+              <td>Adresse IP</td>
+              <td><code>192.168.1.100</code></td>
+              <td>Connexion réseau</td>
+            </tr>
+            <tr>
+              <td>Identifiant unique</td>
+              <td><code>uid_abc123</code></td>
+              <td>Cookie tiers</td>
+            </tr>
+            <tr>
+              <td>Résolution écran</td>
+              <td><code>1920x1080</code></td>
+              <td>JavaScript</td>
+            </tr>
+            <tr>
+              <td>Temps passé</td>
+              <td><code>10 secondes</code></td>
+              <td>JavaScript</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Info Card -->
+      <section class="section">
+        <div class="card">
+          <h3>Implications pour la Vie Privée</h3>
+          <p>
+            Les pixels de suivi permettent un tracking cross-site, c'est-à-dire suivre votre
+            navigation à travers différents sites web. Même si vous n'interagissez pas avec
+            la page, le simple chargement du pixel transmet des informations.
+          </p>
+          <h4 class="mt-md">Utilisations courantes :</h4>
+          <ul>
+            <li><strong>Publicité ciblée :</strong> Construire un profil publicitaire basé sur vos visites</li>
+            <li><strong>Analytics :</strong> Mesurer l'audience et le comportement des visiteurs</li>
+            <li><strong>Remarketing :</strong> Afficher des publicités pour des produits déjà consultés</li>
+            <li><strong>Conversion tracking :</strong> Mesurer l'efficacité des campagnes publicitaires</li>
+          </ul>
+          <h4 class="mt-md">Protection :</h4>
+          <p>
+            Utilisez des bloqueurs de publicité, configurez votre navigateur pour bloquer les
+            cookies tiers, ou utilisez le mode navigation privée pour limiter ce tracking.
+          </p>
+        </div>
+      </section>
+
+      <!-- Action Buttons -->
+      <section class="section">
+        <div class="btn-group">
+          <button class="btn btn-primary" data-action="compare">Comparer avec/sans Pixel</button>
+          <button class="btn btn-secondary" data-action="reset">Réinitialiser</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <p>Privacy Data Visualizer - Projet Universitaire UQAC</p>
+      <p class="text-muted">Interface UI v1.0 - Fonctionnalités à venir</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="../js/main.js"></script>
+</body>
+</html>

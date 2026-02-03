@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestion des Cookies - Privacy Data Visualizer</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <!-- Header & Navigation -->
+    <header>
+      <nav>
+        <div class="logo">Privacy Data Visualizer</div>
+        <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+        <ul class="nav-links">
+          <li><a href="../index.html">Accueil</a></li>
+          <li><a href="cookies.html">Cookies</a></li>
+          <li><a href="pixel-tracker.html">Pixel Tracker</a></li>
+          <li><a href="politiques.html">Politiques</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <div class="container">
+        <!-- Page Header -->
+        <div class="section-header">
+          <h1>🍪 Gestion des Cookies</h1>
+          <p class="section-description">
+            Simulez différents niveaux de consentement aux cookies et observez
+            leur impact sur la collecte de données.
+            <strong>Note :</strong> Cette interface est un placeholder UI -
+            aucune donnée n'est réellement collectée ou stockée.
+          </p>
+        </div>
+
+        <!-- Consent Options -->
+        <section class="section">
+          <h2>Options de Consentement</h2>
+          <p class="text-muted mb-lg">
+            Choisissez un niveau de consentement pour visualiser les différentes
+            catégories de cookies (UI seulement).
+          </p>
+
+          <div class="radio-group">
+            <!-- Option 1: Accept All -->
+            <label class="radio-option">
+              <input type="radio" name="consent" value="all" checked />
+              <div class="radio-option-content">
+                <h4>Tout Accepter</h4>
+                <p>
+                  Tous les cookies sont activés : essentiels, fonctionnels,
+                  analytiques, et publicitaires. Maximum de données collectées
+                  (simulation).
+                </p>
+              </div>
+            </label>
+
+            <!-- Option 2: Necessary Only -->
+            <label class="radio-option">
+              <input type="radio" name="consent" value="necessary" />
+              <div class="radio-option-content">
+                <h4>Cookies Nécessaires Uniquement</h4>
+                <p>
+                  Seuls les cookies essentiels au fonctionnement du site sont
+                  activés. Collecte de données minimale (simulation).
+                </p>
+              </div>
+            </label>
+
+            <!-- Option 3: Reject All -->
+            <label class="radio-option">
+              <input type="radio" name="consent" value="none" />
+              <div class="radio-option-content">
+                <h4>Tout Refuser</h4>
+                <p>
+                  Aucun cookie n'est activé. Certaines fonctionnalités du site
+                  peuvent être limitées. Aucune collecte de données
+                  (simulation).
+                </p>
+              </div>
+            </label>
+          </div>
+        </section>
+
+        <!-- Events & Data Display Grid -->
+        <div class="cards-grid-2 mt-xl">
+          <!-- Events Console -->
+          <div class="section">
+            <h2>
+              Aperçu des Événements
+              <span class="badge badge-placeholder">Placeholder</span>
+            </h2>
+            <p class="text-muted mb-md">
+              Journal des événements liés aux cookies (données statiques
+              fictives).
+            </p>
+
+            <div class="console">
+              <div class="console-header">
+                <span class="console-title">CONSOLE DE DÉBOGAGE (UI)</span>
+              </div>
+              <div class="console-line">
+                <span class="timestamp">[13:45:22]</span>
+                <span class="event">INIT</span> - Système de cookies initialisé
+              </div>
+              <div class="console-line">
+                <span class="timestamp">[13:45:23]</span>
+                <span class="event">CONSENT</span> - Niveau:
+                <span class="value">all</span>
+              </div>
+              <div class="console-line">
+                <span class="timestamp">[13:45:23]</span>
+                <span class="event">COOKIE_SET</span> - session_id:
+                <span class="value">abc123xyz</span>
+              </div>
+              <div class="console-line">
+                <span class="timestamp">[13:45:24]</span>
+                <span class="event">COOKIE_SET</span> - analytics_id:
+                <span class="value">ga_456def</span>
+              </div>
+              <div class="console-line">
+                <span class="timestamp">[13:45:25]</span>
+                <span class="event">TRACKING</span> - Page vue enregistrée
+              </div>
+              <div class="console-line">
+                <span class="timestamp">[13:45:30]</span>
+                <span class="event">TRACKING</span> - Temps passé:
+                <span class="value">5s</span>
+              </div>
+            </div>
+
+            <div class="btn-group mt-md">
+              <button class="btn btn-outline" data-action="reset">
+                Réinitialiser
+              </button>
+            </div>
+          </div>
+
+          <!-- Data Table -->
+          <div class="section">
+            <h2>
+              Données Stockées
+              <span class="badge badge-placeholder">Placeholder</span>
+            </h2>
+            <p class="text-muted mb-md">
+              Cookies actuellement actifs (exemples statiques).
+            </p>
+
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th>Valeur</th>
+                  <th>Type</th>
+                  <th>Expiration</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>session_id</code></td>
+                  <td><code>abc123xyz</code></td>
+                  <td><span class="badge badge-primary">Essentiel</span></td>
+                  <td>Session</td>
+                </tr>
+                <tr>
+                  <td><code>analytics_id</code></td>
+                  <td><code>ga_456def</code></td>
+                  <td><span class="badge badge-secondary">Analytique</span></td>
+                  <td>1 an</td>
+                </tr>
+                <tr>
+                  <td><code>ad_tracking</code></td>
+                  <td><code>pub_789ghi</code></td>
+                  <td><span class="badge badge-secondary">Publicité</span></td>
+                  <td>6 mois</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="placeholder-message mt-md">
+              <div class="placeholder-message-icon">ℹ️</div>
+              <div class="placeholder-message-text">
+                Les données affichées sont des exemples statiques.<br />
+                La fonctionnalité de tracking réel sera implémentée
+                ultérieurement.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info Card -->
+        <section class="section mt-xl">
+          <div class="card">
+            <h3>Comprendre les Cookies</h3>
+            <p>
+              Les cookies sont de petits fichiers texte stockés par votre
+              navigateur. Ils permettent aux sites web de mémoriser vos
+              préférences, votre session, et peuvent être utilisés pour analyser
+              votre comportement ou afficher des publicités ciblées.
+            </p>
+            <h4 class="mt-md">Types de cookies :</h4>
+            <ul>
+              <li>
+                <strong>Essentiels :</strong> Nécessaires au fonctionnement de
+                base du site (authentification, panier)
+              </li>
+              <li>
+                <strong>Fonctionnels :</strong> Améliorent l'expérience
+                utilisateur (préférences de langue, thème)
+              </li>
+              <li>
+                <strong>Analytiques :</strong> Collectent des statistiques
+                d'utilisation (Google Analytics)
+              </li>
+              <li>
+                <strong>Publicitaires :</strong> Permettent le ciblage
+                publicitaire et le tracking cross-site
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Action Buttons -->
+        <section class="section">
+          <div class="btn-group">
+            <button class="btn btn-primary" data-action="compare">
+              Comparer les Scénarios
+            </button>
+            <button class="btn btn-secondary" data-action="reset">
+              Réinitialiser Tout
+            </button>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <p>Privacy Data Visualizer - Projet Universitaire UQAC</p>
+        <p class="text-muted">Interface UI v1.0 - Fonctionnalités à venir</p>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../js/main.js"></script>
+  </body>
+</html>
