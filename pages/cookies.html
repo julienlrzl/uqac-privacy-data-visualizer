@@ -1,18 +1,111 @@
 <!doctype html>
+<!--
+  ======================================================================
+  cookies.html — Gestion des Cookies (démo interactive de consentement)
+
+  Scénarios de test recommandés :
+  1. Premier chargement    : bannière visible, log CONSENT_MISSING
+  2. Tout accepter         : bannière disparaît, 6 cookies créés, log CONSENT_ACCEPT_ALL
+  3. Recharger la page     : bannière absente, log CONSENT_LOADED + page_views incrémenté
+  4. Personnaliser         : modal s'ouvre, toggles reflètent l'état courant
+  5. Enregistrer les choix : log CONSENT_CUSTOM_SAVE, cookies ajustés selon sélection
+  6. Tout refuser          : cookies analytics + marketing supprimés, log CONSENT_REFUSE_ALL
+  7. Réinitialiser         : tous cookies supprimés, bannière réapparaît, log CONSENT_RESET
+  ======================================================================
+-->
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gestion des Cookies - Privacy Data Visualizer</title>
-    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
     <link rel="stylesheet" href="../assets/css/styles.css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
   </head>
   <body>
-    <!-- Header & Navigation -->
+
+    <!-- ═══════════════════════════════════════════════════════
+         Cookie Consent Banner (fixed bottom)
+         ═══════════════════════════════════════════════════════ -->
+    <div id="cookie-banner" class="cookie-banner hidden"
+         role="region" aria-label="Consentement aux cookies">
+      <div class="cookie-banner-inner">
+        <div class="cookie-banner-text">
+          <p>Ce site utilise des cookies pour améliorer votre expérience.</p>
+          <p>Les cookies nécessaires sont toujours actifs. Statistiques et marketing sont optionnels.</p>
+        </div>
+        <div class="cookie-banner-actions">
+          <button id="btn-refuse-all" class="btn-outline-light">Tout refuser</button>
+          <button id="btn-customize"  class="btn-outline-light">Personnaliser</button>
+          <button id="btn-accept-all" class="btn-banner-accept">Tout accepter</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         Consent Preferences Modal
+         ═══════════════════════════════════════════════════════ -->
+    <div id="consent-modal" class="modal-overlay hidden"
+         role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h2 id="modal-title">Préférences de cookies</h2>
+          <button id="modal-close" class="modal-close" aria-label="Fermer">&times;</button>
+        </div>
+        <div class="modal-body">
+
+          <!-- Necessary (always on) -->
+          <div class="consent-row">
+            <div class="consent-row-info">
+              <h4>Nécessaires</h4>
+              <p>Indispensables au fonctionnement du site (session, consentement). Toujours actifs.</p>
+            </div>
+            <label class="toggle-switch" aria-label="Nécessaires — toujours actifs">
+              <input type="checkbox" checked disabled />
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-always-on">Toujours actif</span>
+          </div>
+
+          <!-- Analytics -->
+          <div class="consent-row">
+            <div class="consent-row-info">
+              <h4>Statistiques</h4>
+              <p>Mesure d'audience (analytics_id, page_views) — 13 mois maximum.</p>
+            </div>
+            <label class="toggle-switch" aria-label="Activer les cookies statistiques">
+              <input type="checkbox" id="tog-analytics" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <!-- Marketing -->
+          <div class="consent-row">
+            <div class="consent-row-info">
+              <h4>Marketing</h4>
+              <p>Ciblage publicitaire et retargeting (ad_id, last_campaign) — 13 mois maximum.</p>
+            </div>
+            <label class="toggle-switch" aria-label="Activer les cookies marketing">
+              <input type="checkbox" id="tog-marketing" />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button id="btn-modal-accept-all" class="btn btn-outline btn-sm">Tout accepter</button>
+          <button id="btn-modal-save"       class="btn btn-primary btn-sm">Enregistrer mes choix</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         Header & Navigation
+         ═══════════════════════════════════════════════════════ -->
     <header>
       <nav>
         <div class="logo">Privacy Data Visualizer</div>
-        <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+        <button class="menu-toggle" aria-label="Toggle menu">&#9776;</button>
         <ul class="nav-links">
           <li><a href="../index.html">Accueil</a></li>
           <li><a href="cookies.html">Cookies</a></li>
@@ -22,210 +115,152 @@
       </nav>
     </header>
 
-    <!-- Main Content -->
+    <!-- ═══════════════════════════════════════════════════════
+         Main Content
+         ═══════════════════════════════════════════════════════ -->
     <main>
       <div class="container">
+
         <!-- Page Header -->
         <div class="section-header">
           <h1>Gestion des Cookies</h1>
           <p class="section-description">
-            Simulez différents niveaux de consentement aux cookies et observez
-            leur impact sur la collecte de données.
+            Simulez différents niveaux de consentement et observez en temps réel
+            quels cookies sont créés ou supprimés par le navigateur.
           </p>
         </div>
 
-        <!-- Consent Options -->
+        <!-- ── 1. Cookie Viewer ───────────────────────────────── -->
         <section class="section">
-          <h2>Options de Consentement</h2>
-          <p class="text-muted mb-lg">
-            Choisissez un niveau de consentement pour visualiser les différentes
-            catégories de cookies.
-          </p>
-
-          <div class="radio-group">
-            <!-- Option 1: Accept All -->
-            <label class="radio-option">
-              <input type="radio" name="consent" value="all" checked />
-              <div class="radio-option-content">
-                <h4>Tout Accepter</h4>
-                <p>
-                  Tous les cookies sont activés : essentiels, fonctionnels,
-                  analytiques, et publicitaires. Maximum de données collectées.
-                </p>
-              </div>
-            </label>
-
-            <!-- Option 2: Necessary Only -->
-            <label class="radio-option">
-              <input type="radio" name="consent" value="necessary" />
-              <div class="radio-option-content">
-                <h4>Cookies Nécessaires Uniquement</h4>
-                <p>
-                  Seuls les cookies essentiels au fonctionnement du site sont
-                  activés. Collecte de données minimale.
-                </p>
-              </div>
-            </label>
-
-            <!-- Option 3: Reject All -->
-            <label class="radio-option">
-              <input type="radio" name="consent" value="none" />
-              <div class="radio-option-content">
-                <h4>Tout Refuser</h4>
-                <p>
-                  Aucun cookie n'est activé. Certaines fonctionnalités du site
-                  peuvent être limitées. Aucune collecte de données.
-                </p>
-              </div>
-            </label>
+          <div class="control-bar">
+            <h2 class="control-bar-title">
+              Cookies actifs&nbsp;
+              <span id="cookie-count" class="badge badge-primary">0</span>
+            </h2>
           </div>
-        </section>
-
-        <!-- Events & Data Display Grid -->
-        <div class="cards-grid-2 mt-xl">
-          <!-- Events Console -->
-          <div class="section">
-            <h2>Aperçu des Événements</h2>
-            <p class="text-muted mb-md">
-              Journal des événements liés aux cookies.
-            </p>
-
-            <div class="console">
-              <div class="console-header">
-                <span class="console-title">CONSOLE DE DÉBOGAGE</span>
-              </div>
-              <div class="console-line">
-                <span class="timestamp">[13:45:22]</span>
-                <span class="event">INIT</span> - Système de cookies initialisé
-              </div>
-              <div class="console-line">
-                <span class="timestamp">[13:45:23]</span>
-                <span class="event">CONSENT</span> - Niveau:
-                <span class="value">all</span>
-              </div>
-              <div class="console-line">
-                <span class="timestamp">[13:45:23]</span>
-                <span class="event">COOKIE_SET</span> - session_id:
-                <span class="value">abc123xyz</span>
-              </div>
-              <div class="console-line">
-                <span class="timestamp">[13:45:24]</span>
-                <span class="event">COOKIE_SET</span> - analytics_id:
-                <span class="value">ga_456def</span>
-              </div>
-              <div class="console-line">
-                <span class="timestamp">[13:45:25]</span>
-                <span class="event">TRACKING</span> - Page vue enregistrée
-              </div>
-              <div class="console-line">
-                <span class="timestamp">[13:45:30]</span>
-                <span class="event">TRACKING</span> - Temps passé:
-                <span class="value">5s</span>
-              </div>
-            </div>
-
-            <div class="btn-group mt-md">
-              <button class="btn btn-outline" data-action="reset">
-                Réinitialiser
-              </button>
-            </div>
-          </div>
-
-          <!-- Data Table -->
-          <div class="section">
-            <h2>Données Stockées</h2>
-            <p class="text-muted mb-md">
-              Cookies actuellement actifs.
-            </p>
-
+          <div style="overflow-x:auto;">
             <table class="data-table">
               <thead>
                 <tr>
                   <th>Nom</th>
                   <th>Valeur</th>
-                  <th>Type</th>
-                  <th>Expiration</th>
+                  <th>Catégorie</th>
+                  <th>Durée</th>
+                  <th>Finalité</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="cookie-table-body">
                 <tr>
-                  <td><code>session_id</code></td>
-                  <td><code>abc123xyz</code></td>
-                  <td><span class="badge badge-primary">Essentiel</span></td>
-                  <td>Session</td>
-                </tr>
-                <tr>
-                  <td><code>analytics_id</code></td>
-                  <td><code>ga_456def</code></td>
-                  <td><span class="badge badge-secondary">Analytique</span></td>
-                  <td>1 an</td>
-                </tr>
-                <tr>
-                  <td><code>ad_tracking</code></td>
-                  <td><code>pub_789ghi</code></td>
-                  <td><span class="badge badge-secondary">Publicité</span></td>
-                  <td>6 mois</td>
+                  <td colspan="5" class="text-muted" style="text-align:center;padding:1rem;">
+                    Chargement…
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
-        </div>
+        </section>
 
-        <!-- Info Card -->
-        <section class="section mt-xl">
+        <!-- ── 2. Consent Controls ────────────────────────────── -->
+        <section class="section">
+          <h2>Contrôles du consentement</h2>
+          <p class="text-muted mb-md">
+            Modifiez vos préférences à tout moment. La section est toujours accessible,
+            même après la fermeture de la bannière.
+          </p>
+          <div class="btn-group">
+            <button id="btn-ctrl-accept-all" class="btn btn-primary">Tout accepter</button>
+            <button id="btn-ctrl-refuse-all" class="btn btn-outline">Tout refuser</button>
+            <button id="btn-ctrl-customize"  class="btn btn-outline">Personnaliser</button>
+            <button id="btn-reset-consent"   class="btn btn-outline">Réinitialiser</button>
+          </div>
+        </section>
+
+        <!-- ── 3. Event Log ───────────────────────────────────── -->
+        <section class="section">
+          <div class="control-bar">
+            <h2 class="control-bar-title">
+              Journal d'événements&nbsp;
+              <span id="log-count" class="badge badge-primary">0</span>
+            </h2>
+            <button id="btn-clear-log" class="btn btn-outline btn-sm">Vider le journal</button>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Heure</th>
+                  <th>Événement</th>
+                  <th>Description</th>
+                  <th>Données</th>
+                </tr>
+              </thead>
+              <tbody id="log-table-body">
+                <tr>
+                  <td colspan="4" class="text-muted" style="text-align:center;padding:1rem;">
+                    Chargement…
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ── 4. Educational Content ─────────────────────────── -->
+        <section class="section">
           <div class="card">
-            <h3>Comprendre les Cookies</h3>
-            <p>
-              Les cookies sont de petits fichiers texte stockés par votre
-              navigateur. Ils permettent aux sites web de mémoriser vos
-              préférences, votre session, et peuvent être utilisés pour analyser
-              votre comportement ou afficher des publicités ciblées.
-            </p>
-            <h4 class="mt-md">Types de cookies :</h4>
+            <h3>Comprendre les cookies et le consentement</h3>
+
+            <h4 class="mt-md">Catégories de cookies</h4>
             <ul>
               <li>
-                <strong>Essentiels :</strong> Nécessaires au fonctionnement de
-                base du site (authentification, panier)
+                <strong>Nécessaires :</strong> Requis pour le fonctionnement du site
+                (identification de session, mémorisation du consentement).
+                Exemptés du consentement au titre du RGPD.
               </li>
               <li>
-                <strong>Fonctionnels :</strong> Améliorent l'expérience
-                utilisateur (préférences de langue, thème)
+                <strong>Statistiques :</strong> Mesurent l'audience de manière anonymisée
+                (pages vues, visiteurs uniques). Soumis au consentement.
               </li>
               <li>
-                <strong>Analytiques :</strong> Collectent des statistiques
-                d'utilisation (Google Analytics)
-              </li>
-              <li>
-                <strong>Publicitaires :</strong> Permettent le ciblage
-                publicitaire et le tracking cross-site
+                <strong>Marketing :</strong> Permettent le ciblage publicitaire et le
+                retargeting cross-sites. Consentement explicite obligatoire.
               </li>
             </ul>
+
+            <h4 class="mt-md">Obligations légales (RGPD / ePrivacy)</h4>
+            <ul>
+              <li>Obtenir un consentement libre, éclairé, spécifique et non ambigu.</li>
+              <li>Ne pas déposer de cookies non nécessaires avant le consentement.</li>
+              <li>Permettre le retrait du consentement aussi facilement que son octroi.</li>
+              <li>Conserver une preuve du consentement (date, version, choix effectués).</li>
+            </ul>
+
+            <h4 class="mt-md">Dans cette démo</h4>
+            <p>
+              Toutes les données restent locales (localStorage + document.cookie).
+              Aucune information n'est transmise à un serveur externe.
+              Les identifiants générés sont aléatoires et sans valeur réelle.
+            </p>
           </div>
         </section>
 
-        <!-- Action Buttons -->
-        <section class="section">
-          <div class="btn-group">
-            <button class="btn btn-primary" data-action="compare">
-              Comparer les Scénarios
-            </button>
-            <button class="btn btn-secondary" data-action="reset">
-              Réinitialiser Tout
-            </button>
-          </div>
-        </section>
-      </div>
+      </div><!-- /.container -->
     </main>
 
     <!-- Footer -->
     <footer>
       <div class="footer-content">
         <p>Privacy Data Visualizer - Projet Universitaire UQAC</p>
-      <p class="text-muted">Joseph Balsan · Gaétan Chavanne · Eliot Droumaguet · Julien Larzul</p>
+        <p class="text-muted">Joseph Balsan · Gaétan Chavanne · Eliot Droumaguet · Julien Larzul</p>
       </div>
     </footer>
 
-    <!-- JavaScript -->
+    <!-- JavaScript — load order matters -->
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/storage.js"></script>
+    <script src="../assets/js/logger.js"></script>
+    <script src="../assets/js/preferences.js"></script>
+    <script src="../assets/js/demo-ui.js"></script>
     <script src="../assets/js/main.js"></script>
   </body>
 </html>
