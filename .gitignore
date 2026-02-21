@@ -36,4 +36,5 @@ build/
 # OS files
 Thumbs.db
 desktop.ini
+.claude/
 
