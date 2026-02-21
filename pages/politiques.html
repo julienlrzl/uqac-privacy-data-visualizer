@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 <body>
-  <!-- Header & Navigation -->
   <header>
     <nav>
       <div class="logo">Privacy Data Visualizer</div>
@@ -22,225 +21,33 @@
     </nav>
   </header>
 
-  <!-- Main Content -->
   <main>
     <div class="container-narrow">
-      <!-- Page Header -->
       <div class="section-header">
-        <h1>📜 Analyse de Politiques de Confidentialité</h1>
+        <h1>Politiques de Confidentialité</h1>
         <p class="section-description">
-          Collez une politique de confidentialité pour en analyser le contenu et détecter
-          les catégories de données sensibles. <strong>Note :</strong> L'analyse automatique
-          sera implémentée plus tard - cette interface est un placeholder.
+          Analyse et compréhension des politiques de confidentialité.
         </p>
       </div>
 
-      <!-- Input Section -->
       <section class="section">
-        <h2>Texte de la Politique</h2>
-        <p class="text-muted mb-md">
-          Collez ou saisissez le texte d'une politique de confidentialité ci-dessous.
-        </p>
-
-        <div class="form-group">
-          <textarea
-            class="form-textarea"
-            placeholder="Exemple de politique de confidentialité&#10;&#10;Chez ExempleApp, nous prenons la protection de vos données personnelles au sérieux. Cette politique décrit les informations que nous collectons, comment nous les utilisons, et vos droits.&#10;&#10;DONNÉES COLLECTÉES&#10;Nous collectons les informations suivantes :&#10;- Nom, prénom, adresse email&#10;- Données de localisation GPS&#10;- Historique de navigation et préférences&#10;- Données d'utilisation de l'application&#10;- Informations de paiement&#10;&#10;UTILISATION DES DONNÉES&#10;Vos données sont utilisées pour :&#10;- Fournir et améliorer nos services&#10;- Personnaliser votre expérience&#10;- Analyser l'utilisation de l'application&#10;- Envoyer des communications marketing&#10;- Partager avec nos partenaires publicitaires&#10;&#10;PARTAGE DES DONNÉES&#10;Nous pouvons partager vos informations avec :&#10;- Nos filiales et partenaires commerciaux&#10;- Prestataires de services tiers&#10;- Agences de publicité et d'analyse&#10;- Autorités légales si requis&#10;&#10;VOS DROITS&#10;Vous avez le droit de :&#10;- Accéder à vos données personnelles&#10;- Demander leur rectification ou suppression&#10;- Vous opposer au traitement de vos données&#10;- Retirer votre consentement à tout moment"
-            rows="12"
-            id="policyText"
-          >Exemple de politique de confidentialité
-
-Chez ExempleApp, nous prenons la protection de vos données personnelles au sérieux. Cette politique décrit les informations que nous collectons, comment nous les utilisons, et vos droits.
-
-DONNÉES COLLECTÉES
-Nous collectons les informations suivantes :
-- Nom, prénom, adresse email
-- Données de localisation GPS
-- Historique de navigation et préférences
-- Données d'utilisation de l'application
-- Informations de paiement
-
-UTILISATION DES DONNÉES
-Vos données sont utilisées pour :
-- Fournir et améliorer nos services
-- Personnaliser votre expérience
-- Analyser l'utilisation de l'application
-- Envoyer des communications marketing
-- Partager avec nos partenaires publicitaires
-
-PARTAGE DES DONNÉES
-Nous pouvons partager vos informations avec :
-- Nos filiales et partenaires commerciaux
-- Prestataires de services tiers
-- Agences de publicité et d'analyse
-- Autorités légales si requis
-
-VOS DROITS
-Vous avez le droit de :
-- Accéder à vos données personnelles
-- Demander leur rectification ou suppression
-- Vous opposer au traitement de vos données
-- Retirer votre consentement à tout moment</textarea>
-        </div>
-
-        <div class="btn-group">
-          <button class="btn btn-primary" data-action="analyze">Analyser le Texte</button>
-          <button class="btn btn-outline" data-action="reset">Effacer</button>
-        </div>
-      </section>
-
-      <!-- Analysis Results -->
-      <section class="section">
-        <h2>Résultats de l'Analyse <span class="badge badge-placeholder">Placeholder</span></h2>
-        <p class="text-muted mb-md">
-          Cette section affichera les catégories détectées, les clauses sensibles surlignées,
-          et un score de lisibilité (fonctionnalité à implémenter).
-        </p>
-
-        <!-- Categories Detected -->
-        <div class="card mb-lg">
-          <h3>Catégories de Données Détectées</h3>
-          <p class="text-muted mb-md">
-            Les types de données personnelles mentionnées dans la politique (détection automatique à venir).
-          </p>
-
-          <div class="flex flex-wrap gap-sm">
-            <span class="badge badge-primary">Identité</span>
-            <span class="badge badge-primary">Localisation</span>
-            <span class="badge badge-primary">Navigation</span>
-            <span class="badge badge-primary">Paiement</span>
-            <span class="badge badge-secondary">Marketing</span>
-            <span class="badge badge-secondary">Partage tiers</span>
+        <div class="card" style="text-align: center; padding: var(--spacing-2xl);">
+          <h2 style="margin-bottom: var(--spacing-md);">En cours de développement</h2>
+          <p class="text-muted">Cette fonctionnalité sera disponible prochainement.</p>
+          <div class="btn-group mt-lg" style="justify-content: center;">
+            <a href="../index.html" class="btn btn-outline">Retour à l'accueil</a>
           </div>
-        </div>
-
-        <!-- Highlighted Sections -->
-        <div class="card mb-lg">
-          <h3>Clauses Sensibles</h3>
-          <p class="text-muted mb-md">
-            Sections de la politique qui méritent une attention particulière (surlignage automatique à venir).
-          </p>
-
-          <div class="console" style="max-height: 300px;">
-            <div style="line-height: 1.8; color: #e2e8f0;">
-              <p style="margin-bottom: 1rem;">
-                <span style="background: rgba(239, 68, 68, 0.2); padding: 2px 4px; border-radius: 3px;">
-                  "Nous collectons les informations suivantes : Nom, prénom, adresse email, Données de localisation GPS..."
-                </span>
-              </p>
-              <p style="margin-bottom: 1rem;">
-                <span style="background: rgba(245, 158, 11, 0.2); padding: 2px 4px; border-radius: 3px;">
-                  "Envoyer des communications marketing"
-                </span>
-              </p>
-              <p style="margin-bottom: 1rem;">
-                <span style="background: rgba(239, 68, 68, 0.2); padding: 2px 4px; border-radius: 3px;">
-                  "Partager avec nos partenaires publicitaires"
-                </span>
-              </p>
-              <p>
-                <span style="background: rgba(245, 158, 11, 0.2); padding: 2px 4px; border-radius: 3px;">
-                  "Nous pouvons partager vos informations avec : Nos filiales et partenaires commerciaux..."
-                </span>
-              </p>
-            </div>
-          </div>
-
-          <div class="flex gap-sm mt-md">
-            <div class="flex align-center gap-sm">
-              <span style="display: inline-block; width: 16px; height: 16px; background: rgba(239, 68, 68, 0.3); border-radius: 3px;"></span>
-              <span class="text-muted" style="font-size: 0.875rem;">Collecte extensive</span>
-            </div>
-            <div class="flex align-center gap-sm">
-              <span style="display: inline-block; width: 16px; height: 16px; background: rgba(245, 158, 11, 0.3); border-radius: 3px;"></span>
-              <span class="text-muted" style="font-size: 0.875rem;">Partage avec tiers</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Statistics -->
-        <div class="cards-grid-2">
-          <div class="card">
-            <h4>Statistiques du Texte</h4>
-            <table style="width: 100%; margin-top: var(--spacing-md);">
-              <tr>
-                <td style="padding: var(--spacing-xs) 0; color: var(--text-secondary);">Nombre de mots</td>
-                <td style="text-align: right; font-weight: 600;">~280 mots</td>
-              </tr>
-              <tr>
-                <td style="padding: var(--spacing-xs) 0; color: var(--text-secondary);">Temps de lecture estimé</td>
-                <td style="text-align: right; font-weight: 600;">~1 min 30s</td>
-              </tr>
-              <tr>
-                <td style="padding: var(--spacing-xs) 0; color: var(--text-secondary);">Niveau de complexité</td>
-                <td style="text-align: right; font-weight: 600;">Moyen</td>
-              </tr>
-            </table>
-          </div>
-
-          <div class="card">
-            <h4>Score de Confidentialité</h4>
-            <p class="text-muted mb-md" style="font-size: 0.875rem;">
-              Évaluation basée sur le niveau de protection des données (algorithme à implémenter).
-            </p>
-            <div style="text-align: center;">
-              <div style="font-size: 3rem; font-weight: 700; color: var(--warning);">5/10</div>
-              <p class="text-muted" style="margin: 0; font-size: 0.875rem;">Score indicatif (placeholder)</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="placeholder-message mt-lg">
-          <div class="placeholder-message-icon">🔍</div>
-          <div class="placeholder-message-text">
-            L'analyse automatique de texte, la détection de patterns, et le scoring seront
-            implémentés dans une version future. Les résultats affichés sont des exemples statiques.
-          </div>
-        </div>
-      </section>
-
-      <!-- Info Card -->
-      <section class="section">
-        <div class="card">
-          <h3>Comprendre les Politiques de Confidentialité</h3>
-          <p>
-            Les politiques de confidentialité sont des documents légaux qui expliquent comment
-            une entreprise collecte, utilise, stocke et partage vos données personnelles.
-          </p>
-          <h4 class="mt-md">Éléments clés à vérifier :</h4>
-          <ul>
-            <li><strong>Quelles données</strong> sont collectées (identité, localisation, comportement, etc.)</li>
-            <li><strong>Comment</strong> ces données sont utilisées (amélioration service, marketing, publicité)</li>
-            <li><strong>Avec qui</strong> elles sont partagées (partenaires, annonceurs, autorités)</li>
-            <li><strong>Combien de temps</strong> elles sont conservées</li>
-            <li><strong>Vos droits</strong> (accès, rectification, suppression, opposition)</li>
-          </ul>
-          <p class="mt-md">
-            <strong>Conseil :</strong> Lisez toujours les sections "Données collectées", "Partage avec des tiers",
-            et "Vos droits" avant d'accepter une politique de confidentialité.
-          </p>
-        </div>
-      </section>
-
-      <!-- Action Buttons -->
-      <section class="section">
-        <div class="btn-group">
-          <button class="btn btn-primary" data-action="compare">Comparer avec d'autres Politiques</button>
-          <button class="btn btn-secondary" data-action="reset">Réinitialiser</button>
         </div>
       </section>
     </div>
   </main>
 
-  <!-- Footer -->
   <footer>
     <div class="footer-content">
       <p>Privacy Data Visualizer - Projet Universitaire UQAC</p>
-      <p class="text-muted">Interface UI v1.0 - Fonctionnalités à venir</p>
     </div>
   </footer>
 
-  <!-- JavaScript -->
   <script src="../assets/js/main.js"></script>
 </body>
 </html>
