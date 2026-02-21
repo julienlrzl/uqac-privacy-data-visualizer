@@ -281,6 +281,75 @@
 }
 
 /* ─────────────────────────────────────────────────────────────
+   "Ce que ces cookies permettent réellement" — grille
+   ───────────────────────────────────────────────────────────── */
+.cmg-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.cmg-group {
+  border-radius: 0.5rem;
+  padding: 0.875rem 1rem;
+  border-left: 4px solid transparent;
+}
+.cmg-necessary { background: #f0fdf4; border-left-color: #10b981; }
+.cmg-analytics { background: #eff6ff; border-left-color: #3b82f6; }
+.cmg-marketing { background: #fffbeb; border-left-color: #f59e0b; }
+
+.cmg-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-bottom: 0.6rem;
+}
+.cmg-label {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #1e293b;
+}
+.cmg-names {
+  font-size: 0.78rem;
+  color: #64748b;
+}
+.cmg-names code {
+  font-size: 0.75rem;
+  background: rgba(0,0,0,0.06);
+  padding: 0.05rem 0.3rem;
+  border-radius: 0.2rem;
+  color: inherit;
+}
+
+.cmg-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.cmg-list li {
+  font-size: 0.85rem;
+  color: #334155;
+  line-height: 1.5;
+}
+
+.cmg-why {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #475569;
+  line-height: 1.6;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+}
+.cmg-why strong { color: #1e293b; }
+
+@media (max-width: 768px) {
+  .cmg-grid { grid-template-columns: 1fr; }
+}
+
+/* ─────────────────────────────────────────────────────────────
    "Ce qui se passe quand vous cliquez" — accordion
    ───────────────────────────────────────────────────────────── */
 .wh-accordion {
