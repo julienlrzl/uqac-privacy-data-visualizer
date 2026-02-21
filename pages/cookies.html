@@ -160,60 +160,7 @@
           </div>
         </section>
 
-        <!-- ── 2. Ce que ces cookies permettent réellement ─────── -->
-        <section class="section">
-          <div class="card">
-            <h3>Ce que ces cookies permettent réellement</h3>
-
-            <div class="cmg-grid">
-
-              <div class="cmg-group cmg-necessary">
-                <div class="cmg-header">
-                  <span class="cmg-label">Nécessaires</span>
-                  <span class="cmg-names"><code>session_id</code>, <code>consent_state</code></span>
-                </div>
-                <ul class="cmg-list">
-                  <li>Relier toutes les actions d'une même visite à une session unique.</li>
-                  <li>Mémoriser votre choix de consentement pour ne pas le redemander à chaque page.</li>
-                  <li>Fonctionnement minimal du site, sans suivi ni profilage.</li>
-                </ul>
-              </div>
-
-              <div class="cmg-group cmg-analytics">
-                <div class="cmg-header">
-                  <span class="cmg-label">Statistiques</span>
-                  <span class="cmg-names"><code>analytics_id</code>, <code>page_views</code></span>
-                </div>
-                <ul class="cmg-list">
-                  <li>Reconnaître un même visiteur lors de visites ultérieures sur 13 mois, sans inscription.</li>
-                  <li>Mesurer l'engagement : pages consultées, fréquence de retour, parcours.</li>
-                  <li>Construire un historique de navigation corrélé à un identifiant persistant.</li>
-                </ul>
-              </div>
-
-              <div class="cmg-group cmg-marketing">
-                <div class="cmg-header">
-                  <span class="cmg-label">Marketing</span>
-                  <span class="cmg-names"><code>ad_id</code>, <code>last_campaign</code></span>
-                </div>
-                <ul class="cmg-list">
-                  <li>Attribuer une visite à une campagne publicitaire précise (attribution).</li>
-                  <li>Cibler un visiteur avec des publicités sur d'autres sites (retargeting).</li>
-                  <li>Mesurer la conversion : savoir si un clic publicitaire a abouti à une action.</li>
-                </ul>
-              </div>
-
-            </div>
-
-            <p class="cmg-why">
-              <strong>Pourquoi c'est important :</strong> pris isolément, chaque cookie semble anodin.
-              Combinés (identifiant persistant + historique d'événements), ils permettent de corréler
-              des visites dans le temps, même sans nom ni email.
-            </p>
-          </div>
-        </section>
-
-        <!-- ── 3. Consent Controls ────────────────────────────── -->
+        <!-- ── 2. Consent Controls ────────────────────────────── -->
         <section class="section">
           <h2>Contrôles du consentement</h2>
           <p class="text-muted mb-md">
@@ -297,81 +244,56 @@
           </div>
         </section>
 
-        <!-- ── 5. Ce qui se passe quand vous cliquez ────────── -->
+        <!-- ── 5. Ce que ces cookies permettent réellement ─────── -->
         <section class="section">
           <div class="card">
-            <h3>Ce qui se passe quand vous cliquez</h3>
-            <p class="text-muted" style="margin-bottom:1rem;font-size:0.9rem;">
-              Déroulez une action pour voir la chaîne exacte d'effets produits dans cette démo.
-            </p>
+            <h3>Ce que ces cookies permettent réellement</h3>
 
-            <div class="wh-accordion">
+            <div class="cmg-grid">
 
-              <!-- Tout accepter -->
-              <details class="wh-item wh-accept">
-                <summary>Tout accepter</summary>
-                <div class="wh-body">
-                  <ol>
-                    <li>Le choix <code>{analytics: true, marketing: true}</code> est sauvegardé dans <code>localStorage</code> (clé <code>consent_state</code>).</li>
-                    <li>Un cookie <code>consent_state</code> est créé ou mis à jour dans le navigateur (durée : 180 jours).</li>
-                    <li>Un cookie de session <code>session_id</code> est créé s'il n'existait pas encore (durée : fermeture du navigateur).</li>
-                    <li>Un identifiant analytics <code>analytics_id</code> est généré et stocké en cookie (durée : 390 jours, soit 13 mois).</li>
-                    <li>Un compteur de pages vues <code>page_views</code> est créé ou incrémenté (durée : 1 jour).</li>
-                    <li>Un identifiant publicitaire <code>ad_id</code> est généré (durée : 390 jours, soit 13 mois).</li>
-                    <li>Un cookie d'attribution <code>last_campaign</code> est créé (durée : 30 jours).</li>
-                    <li>Chaque création est enregistrée dans le journal avec horodatage, nom, catégorie et valeur.</li>
-                  </ol>
-                  <p class="wh-note">
-                    <strong>Ce que ça implique :</strong> avec <code>analytics_id</code> et <code>ad_id</code> actifs 13 mois,
-                    le site peut reconnaître un même visiteur entre deux sessions, sans nom ni email.
-                    Un simple identifiant suffit à corréler des visites dans le temps.
-                  </p>
+              <div class="cmg-group cmg-necessary">
+                <div class="cmg-header">
+                  <span class="cmg-label">Nécessaires</span>
+                  <span class="cmg-names"><code>session_id</code>, <code>consent_state</code></span>
                 </div>
-              </details>
+                <ul class="cmg-list">
+                  <li>Relier toutes les actions d'une même visite à une session unique.</li>
+                  <li>Mémoriser votre choix de consentement pour ne pas le redemander à chaque page.</li>
+                  <li>Fonctionnement minimal du site, sans suivi ni profilage.</li>
+                </ul>
+              </div>
 
-              <!-- Tout refuser -->
-              <details class="wh-item wh-refuse">
-                <summary>Tout refuser</summary>
-                <div class="wh-body">
-                  <ol>
-                    <li>Le choix <code>{analytics: false, marketing: false}</code> est sauvegardé dans <code>localStorage</code>.</li>
-                    <li>Le cookie <code>consent_state</code> est créé ou mis à jour (durée : 180 jours).</li>
-                    <li>Le cookie de session <code>session_id</code> est conservé, il est nécessaire au fonctionnement.</li>
-                    <li>Si <code>analytics_id</code> et <code>page_views</code> existaient, ils sont <strong>supprimés immédiatement</strong>.</li>
-                    <li>Si <code>ad_id</code> et <code>last_campaign</code> existaient, ils sont <strong>supprimés immédiatement</strong>.</li>
-                    <li>Chaque suppression est journalisée avec la catégorie et l'horodatage.</li>
-                  </ol>
-                  <p class="wh-note">
-                    <strong>Limite réelle :</strong> cette démo supprime les cookies via JavaScript.
-                    Sur un vrai site, certains cookies sont <code>HttpOnly</code> (invisibles au JS) et
-                    ne peuvent être supprimés que côté serveur. Le JS ne peut pas non plus lire l'adresse IP.
-                  </p>
+              <div class="cmg-group cmg-analytics">
+                <div class="cmg-header">
+                  <span class="cmg-label">Statistiques</span>
+                  <span class="cmg-names"><code>analytics_id</code>, <code>page_views</code></span>
                 </div>
-              </details>
+                <ul class="cmg-list">
+                  <li>Reconnaître un même visiteur lors de visites ultérieures sur 13 mois, sans inscription.</li>
+                  <li>Mesurer l'engagement : pages consultées, fréquence de retour, parcours.</li>
+                  <li>Construire un historique de navigation corrélé à un identifiant persistant.</li>
+                </ul>
+              </div>
 
-              <!-- Personnaliser -->
-              <details class="wh-item wh-custom">
-                <summary>Personnaliser puis Enregistrer</summary>
-                <div class="wh-body">
-                  <ol>
-                    <li>La modal s'ouvre, les toggles reflètent l'état actuel du consentement.</li>
-                    <li>L'utilisateur active ou désactive <em>Statistiques</em> et/ou <em>Marketing</em> indépendamment.</li>
-                    <li>Clic sur "Enregistrer mes choix" : le consentement est sauvegardé dans <code>localStorage</code>.</li>
-                    <li>Si <strong>Statistiques ON</strong> : <code>analytics_id</code> (390 j) et <code>page_views</code> (1 j) sont créés.</li>
-                    <li>Si <strong>Statistiques OFF</strong> : <code>analytics_id</code> et <code>page_views</code> sont supprimés s'ils existaient.</li>
-                    <li>Si <strong>Marketing ON</strong> : <code>ad_id</code> (390 j) et <code>last_campaign</code> (30 j) sont créés.</li>
-                    <li>Si <strong>Marketing OFF</strong> : <code>ad_id</code> et <code>last_campaign</code> sont supprimés s'ils existaient.</li>
-                    <li>Le tableau des cookies et le journal se mettent à jour en temps réel.</li>
-                  </ol>
-                  <p class="wh-note">
-                    <strong>Consentement granulaire :</strong> chaque catégorie est traitée indépendamment,
-                    conformément à l'exigence RGPD d'un consentement spécifique par finalité.
-                    On peut accepter les statistiques sans accepter le marketing.
-                  </p>
+              <div class="cmg-group cmg-marketing">
+                <div class="cmg-header">
+                  <span class="cmg-label">Marketing</span>
+                  <span class="cmg-names"><code>ad_id</code>, <code>last_campaign</code></span>
                 </div>
-              </details>
+                <ul class="cmg-list">
+                  <li>Attribuer une visite à une campagne publicitaire précise (attribution).</li>
+                  <li>Cibler un visiteur avec des publicités sur d'autres sites (retargeting).</li>
+                  <li>Mesurer la conversion : savoir si un clic publicitaire a abouti à une action.</li>
+                </ul>
+              </div>
 
             </div>
+
+            <p class="cmg-why">
+              <strong>Pourquoi c'est important :</strong> pris isolément, chaque cookie semble anodin.
+              Combinés (identifiant persistant + historique d'événements), ils permettent de corréler
+              des visites dans le temps, même sans nom ni email.
+            </p>
           </div>
         </section>
 
