@@ -278,6 +278,88 @@
 
 @media (max-width: 768px) {
   .cookie-banner-inner { flex-direction: column; align-items: flex-start; gap: 1rem; }
-  .scenario-save-grid  { grid-template-columns: 1fr; }
-  .scenario-divider    { padding-top: 0; font-size: 1rem; text-align: left; }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   "Ce qui se passe quand vous cliquez" — accordion
+   ───────────────────────────────────────────────────────────── */
+.wh-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.wh-item {
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.wh-item summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  background: #f8fafc;
+  list-style: none;
+  border-left: 4px solid transparent;
+  transition: background 0.15s;
+}
+.wh-item summary::-webkit-details-marker { display: none; }
+.wh-item summary::after {
+  content: '+';
+  font-size: 1.1rem;
+  color: #94a3b8;
+  flex-shrink: 0;
+  margin-left: 0.75rem;
+}
+.wh-item[open] summary::after { content: '\2212'; }
+.wh-item summary:hover { background: #f1f5f9; }
+
+.wh-accept summary { border-left-color: #10b981; }
+.wh-refuse summary { border-left-color: #ef4444; }
+.wh-custom summary { border-left-color: #2563eb; }
+
+.wh-body {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid #e2e8f0;
+}
+.wh-body ol {
+  margin: 0;
+  padding-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+.wh-body li {
+  font-size: 0.9rem;
+  color: #1e293b;
+  line-height: 1.55;
+}
+.wh-body code {
+  font-size: 0.82rem;
+  background: #f1f5f9;
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.25rem;
+  color: #1e40af;
+}
+.wh-note {
+  margin: 0.875rem 0 0;
+  padding-top: 0.875rem;
+  border-top: 1px solid #e2e8f0;
+  font-size: 0.85rem;
+  color: #64748b;
+  line-height: 1.6;
+}
+.wh-note strong { color: #475569; }
+.wh-note code {
+  font-size: 0.8rem;
+  background: #f1f5f9;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.2rem;
+  color: #475569;
 }
