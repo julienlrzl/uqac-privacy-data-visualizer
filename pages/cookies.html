@@ -1,18 +1,4 @@
 <!doctype html>
-<!--
-  ======================================================================
-  cookies.html — Gestion des Cookies (démo interactive de consentement)
-
-  Scénarios de test recommandés :
-  1. Premier chargement    : bannière visible, log CONSENT_MISSING
-  2. Tout accepter         : bannière disparaît, 6 cookies créés, log CONSENT_ACCEPT_ALL
-  3. Recharger la page     : bannière absente, log CONSENT_LOADED + page_views incrémenté
-  4. Personnaliser         : modal s'ouvre, toggles reflètent l'état courant
-  5. Enregistrer les choix : log CONSENT_CUSTOM_SAVE, cookies ajustés selon sélection
-  6. Tout refuser          : cookies analytics + marketing supprimés, log CONSENT_REFUSE_ALL
-  7. Réinitialiser         : tous cookies supprimés, bannière réapparaît, log CONSENT_RESET
-  ======================================================================
--->
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
@@ -24,9 +10,6 @@
   </head>
   <body>
 
-    <!-- ═══════════════════════════════════════════════════════
-         Cookie Consent Banner (fixed bottom)
-         ═══════════════════════════════════════════════════════ -->
     <div id="cookie-banner" class="cookie-banner hidden"
          role="region" aria-label="Consentement aux cookies">
       <div class="cookie-banner-inner">
@@ -42,9 +25,6 @@
       </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════════════
-         Consent Preferences Modal
-         ═══════════════════════════════════════════════════════ -->
     <div id="consent-modal" class="modal-overlay hidden"
          role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <div class="modal-box">
@@ -54,7 +34,6 @@
         </div>
         <div class="modal-body">
 
-          <!-- Necessary (always on) -->
           <div class="consent-row">
             <div class="consent-row-info">
               <h4>Nécessaires</h4>
@@ -67,7 +46,6 @@
             <span class="toggle-always-on">Toujours actif</span>
           </div>
 
-          <!-- Analytics -->
           <div class="consent-row">
             <div class="consent-row-info">
               <h4>Statistiques</h4>
@@ -79,7 +57,6 @@
             </label>
           </div>
 
-          <!-- Marketing -->
           <div class="consent-row">
             <div class="consent-row-info">
               <h4>Marketing</h4>
@@ -99,9 +76,6 @@
       </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════════════
-         Header & Navigation
-         ═══════════════════════════════════════════════════════ -->
     <header>
       <nav>
         <div class="logo">Privacy Data Visualizer</div>
@@ -115,13 +89,9 @@
       </nav>
     </header>
 
-    <!-- ═══════════════════════════════════════════════════════
-         Main Content
-         ═══════════════════════════════════════════════════════ -->
     <main>
       <div class="container">
 
-        <!-- Page Header -->
         <div class="section-header">
           <h1>Gestion des Cookies</h1>
           <p class="section-description">
@@ -130,7 +100,6 @@
           </p>
         </div>
 
-        <!-- ── 1. Cookie Viewer ───────────────────────────────── -->
         <section class="section">
           <div class="control-bar">
             <h2 class="control-bar-title">
@@ -160,7 +129,6 @@
           </div>
         </section>
 
-        <!-- ── 2. Consent Controls ────────────────────────────── -->
         <section class="section">
           <h2>Contrôles du consentement</h2>
           <p class="text-muted mb-md">
@@ -175,7 +143,6 @@
           </div>
         </section>
 
-        <!-- ── 3. Event Log ───────────────────────────────────── -->
         <section class="section">
           <div class="control-bar">
             <h2 class="control-bar-title">
@@ -205,7 +172,6 @@
           </div>
         </section>
 
-        <!-- ── 4. Educational Content ─────────────────────────── -->
         <section class="section">
           <div class="card">
             <h3>Comprendre les cookies et le consentement</h3>
@@ -244,7 +210,6 @@
           </div>
         </section>
 
-        <!-- ── 5. Ce que ces cookies permettent réellement ─────── -->
         <section class="section">
           <div class="card">
             <h3>Ce que ces cookies permettent réellement</h3>
@@ -297,10 +262,9 @@
           </div>
         </section>
 
-      </div><!-- /.container -->
+      </div>
     </main>
 
-    <!-- Footer -->
     <footer>
       <div class="footer-content">
         <p>Privacy Data Visualizer - Projet Universitaire UQAC</p>
@@ -308,7 +272,6 @@
       </div>
     </footer>
 
-    <!-- JavaScript — load order matters -->
     <script src="../assets/js/config.js"></script>
     <script src="../assets/js/storage.js"></script>
     <script src="../assets/js/logger.js"></script>
