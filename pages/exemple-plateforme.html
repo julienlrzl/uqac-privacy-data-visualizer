@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cas d'Usage : Plateforme - Privacy Data Visualizer</title>
+  <title>Cas d'Usage : Data Broker (thème Palantir) - Privacy Data Visualizer</title>
   <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
   <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
@@ -17,6 +17,7 @@
         <li><a href="cookies.html">Cookies</a></li>
         <li><a href="pixel-tracker.html">Pixel Tracker</a></li>
         <li><a href="politiques.html">Politiques</a></li>
+        <li><a href="exemple-plateforme.html">Cas d'usage</a></li>
       </ul>
     </nav>
   </header>
@@ -24,21 +25,169 @@
   <main>
     <div class="container-narrow">
       <div class="section-header">
-        <h1>Cas d'Usage : Plateforme</h1>
+        <h1>Cas d'usage : Data Broker (inspiré d'un site type Palantir)</h1>
         <p class="section-description">
-          Analyse pédagogique des mécanismes de collecte de données sur une plateforme.
+          Objectif : rendre visibles des mécanismes "invisibles" (cookies, identifiants, corrélation) en simulant,
+          <strong>en local</strong>, ce qu'un data broker peut déduire/monétiser à partir d'une simple visite.
         </p>
       </div>
 
       <section class="section">
-        <div class="card" style="text-align: center; padding: var(--spacing-2xl);">
-          <h2 style="margin-bottom: var(--spacing-md);">En cours de développement</h2>
-          <p class="text-muted">Cette fonctionnalité sera disponible prochainement.</p>
-          <div class="btn-group mt-lg" style="justify-content: center;">
-            <a href="../index.html" class="btn btn-outline">Retour à l'accueil</a>
-          </div>
+        <div class="card">
+          <h2>1) Scénario</h2>
+          <p>
+            Vous arrivez sur un site B2B “type Palantir” (page produit, whitepaper, formulaire “Request a demo”).
+            Sans rien remplir, la page peut déjà déclencher des mécanismes de suivi : création d'identifiants, mesure d'audience,
+            et (si autorisé) marketing/retargeting.
+          </p>
+
+          <ol class="mt-md">
+            <li><strong>Chargement de la page</strong> : création de cookies “nécessaires” (gestion du consentement).</li>
+            <li><strong>Si vous avez consenti</strong> :
+              <ul>
+                <li><em>Statistiques</em> : identifiants analytics (ex. Google Analytics, HubSpot) + compteur de sessions.</li>
+                <li><em>Marketing</em> : identifiants publicitaires (ex. Meta, Microsoft Ads, LinkedIn, TikTok) pour retargeting.</li>
+              </ul>
+            </li>
+            <li><strong>Corrélation</strong> : ces identifiants peuvent être recoupés avec d'autres sites/services (cookie syncing, RTB),
+              puis revendues/achetées par des intermédiaires (data brokers).
+            </li>
+          </ol>
+
+          <p class="text-muted mt-md">
+            Cette démo ne contacte aucun service externe : on simule uniquement la création/présence des cookies et on les rend observables.
+          </p>
         </div>
       </section>
+
+      <section class="section">
+        <div class="card">
+          <h2>2) Données observables (dans cette page)</h2>
+          <p>Sur un site réel, une simple visite expose/produit souvent :</p>
+
+          <ul class="mt-md">
+            <li><strong>Identifiants cookie</strong> (ex. <code>_ga</code>, <code>hubspotutk</code>, <code>IDE</code>, <code>MUID</code>…)</li>
+            <li><strong>Événements</strong> : page vue, clics, temps passé, navigation (reconstruit via logs/cookies)</li>
+            <li><strong>Données techniques</strong> : IP approximative (géolocalisation coarse), navigateur, OS, langue (souvent collectées côté serveur)</li>
+            <li><strong>Signaux marketing</strong> : campagne, referrer, segment d'audience (si trackers/ads activés)</li>
+          </ul>
+
+          <p class="mt-md">
+            En pratique, ces éléments servent à reconnaître le même navigateur dans le temps et à relier des visites entre sites,
+            surtout quand plusieurs partenaires publicitaires “matchent” leurs identifiants (cookie syncing / RTB).
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="card">
+          <h2>3) Implications (conservation / achat / revente)</h2>
+
+          <p>
+            Les cookies sont souvent conservés longtemps (mois/années) pour maintenir un identifiant stable :
+            par exemple des cookies analytics peuvent durer ~2 ans, et des identifiants publicitaires plusieurs mois.
+          </p>
+
+          <p class="mt-md">
+            Côté marché “data broker”, les prix unitaires peuvent être très bas, mais l'échelle est énorme :
+            des collecteurs peuvent rémunérer des développeurs d'apps quelques centimes par utilisateur et par mois,
+            puis revendre des enregistrements à des tiers (parfois à quelques dizaines de centimes par record).
+          </p>
+
+          <table class="data-table mt-md" aria-label="Exemples d'implications data broker">
+            <thead>
+              <tr>
+                <th>Type de donnée</th>
+                <th>Exemple</th>
+                <th>Ordre de grandeur (marché)</th>
+                <th>Risque</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Identifiants pub / cookies</td>
+                <td>ID persistants (retargeting)</td>
+                <td>Souvent “au volume”, parfois sub-cent par profil</td>
+                <td>Suivi inter-sites, profilage, discrimination de prix</td>
+              </tr>
+              <tr>
+                <td>Localisation (mobile)</td>
+                <td>Trajectoires / lieux sensibles</td>
+                <td>Paiement à des apps ~0,03$ / utilisateur / mois (US)</td>
+                <td>Ré-identification, surveillance, risques physiques</td>
+              </tr>
+              <tr>
+                <td>“Records” enrichis</td>
+                <td>Segments + attributs (ex. intérêts)</td>
+                <td>Achats observés à ~0,12$–0,32$ par record</td>
+                <td>Ciblage sensible, manipulation, chantage</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="text-muted mt-md">
+            Les chiffres ci-dessus sont indicatifs (sources publiques) et servent à contextualiser la démonstration.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="card">
+          <h2>4) Rappel “Politique de confidentialité” (type Palantir)</h2>
+          <p>
+            Les politiques de confidentialité des sites B2B indiquent généralement la collecte de données techniques et d'identifiants,
+            y compris des <em>cookie IDs</em> et des informations d'interaction avec le site.
+            Palantir publie une “Privacy and Security Statement” et renvoie vers un “Cookie Statement” pour le détail des cookies.
+          </p>
+
+          <ul class="mt-md">
+            <li>Principe : distinguer <strong>données collectées</strong> (ex. identifiants, logs) et <strong>usages possibles</strong> (profilage, corrélation, ciblage).</li>
+            <li>Point clé : même sans “nom/prénom”, un identifiant stable + des signaux (pages, horaires, IP coarse) suffit souvent à profiler puis ré-identifier.</li>
+          </ul>
+
+          <p class="mt-md"><span class="badge badge-secondary">Contrainte UQAC</span> Aucune collecte réelle par un tiers : tout reste <strong>local</strong> et <strong>observable</strong>.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="card">
+          <div style="display:flex; justify-content: space-between; align-items: center; gap: var(--spacing-md); flex-wrap: wrap;">
+            <div>
+              <h2 style="margin:0;">5) Tableau dynamique : cookies présents sur cette page</h2>
+              <p class="text-muted" style="margin-top: var(--spacing-xs);">
+                Cookies détectés : <strong id="cookie-count">0</strong> — liste “Palantir-like” simulée (local).
+              </p>
+            </div>
+            <div class="btn-group" style="margin:0;">
+              <button id="btn-refresh-cookies" class="btn btn-outline">Rafraîchir</button>
+              <button id="btn-clear-palantir" class="btn btn-outline" title="Supprime uniquement les cookies simulés sur cette page">Vider cookies (page)</button>
+            </div>
+          </div>
+
+          <div class="mt-md" style="overflow-x:auto;">
+            <table class="data-table" aria-label="Cookies observés">
+              <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th>Catégorie</th>
+                  <th>Durée (simulée)</th>
+                  <th>Valeur (aperçu)</th>
+                  <th>But</th>
+                </tr>
+              </thead>
+              <tbody id="cookie-table-body">
+                <!-- rempli par JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <p class="text-muted mt-md">
+            Astuce : pour voir l'impact du consentement, allez sur <a href="cookies.html">Cookies</a> et changez vos préférences,
+            puis revenez ici et cliquez “Rafraîchir”.
+          </p>
+        </div>
+      </section>
+
     </div>
   </main>
 
@@ -49,6 +198,9 @@
     </div>
   </footer>
 
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/logger.js"></script>
+  <script src="../assets/js/palantir-demo.js"></script>
   <script src="../assets/js/main.js"></script>
 </body>
 </html>
