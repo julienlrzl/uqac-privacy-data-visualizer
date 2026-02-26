@@ -17,45 +17,98 @@ function generateId(prefix) {
   return (prefix || 'id') + '_' + rand + time;
 }
 
+// --- Cookie support / fallback (file://) ---
+var __COOKIE_FALLBACK_KEY = '__pdv_cookie_fallback_v1';
+
+function __getCookieFallbackStore() {
+  try { return JSON.parse(localStorage.getItem(__COOKIE_FALLBACK_KEY) || '{}'); }
+  catch (e) { return {}; }
+}
+
+function __setCookieFallbackStore(obj) {
+  try { localStorage.setItem(__COOKIE_FALLBACK_KEY, JSON.stringify(obj || {})); } catch (e) {}
+}
+
+function cookiesAreSupported() {
+  try {
+    var test = '__pdv_test_cookie';
+    document.cookie = test + "=1; path=/; SameSite=Strict";
+    var ok = document.cookie && document.cookie.indexOf(test + '=') !== -1;
+    document.cookie = test + "=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Strict";
+    return !!ok;
+  } catch (e) {
+    return false;
+  }
+}
+
+
 /**
  * Sets a cookie on the current domain.
  * @param {string}      name
  * @param {string}      value
  * @param {number|null} ttlDays  null → session cookie (no Expires header)
  */
+
 function setCookie(name, value, ttlDays) {
-  var str = name + '=' + encodeURIComponent(value) + '; path=/; SameSite=Strict';
+  var str = name + '=' + encodeURIComponent(String(value)) + '; path=/; SameSite=Strict';
+
   if (ttlDays !== null && ttlDays !== undefined) {
     var d = new Date();
     d.setTime(d.getTime() + ttlDays * 86400000);
     str += '; expires=' + d.toUTCString();
   }
+
   document.cookie = str;
+
+  // Fallback if cookies are not persisted (common on file://)
+  if (!cookiesAreSupported()) {
+    var store = __getCookieFallbackStore();
+    store[name] = String(value);
+    __setCookieFallbackStore(store);
+  }
 }
 
 /**
  * Deletes a cookie by back-dating its expiry.
  * @param {string} name
  */
+
 function deleteCookie(name) {
   document.cookie = name + '=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Strict';
+
+  var store = __getCookieFallbackStore();
+  if (store && Object.prototype.hasOwnProperty.call(store, name)) {
+    delete store[name];
+    __setCookieFallbackStore(store);
+  }
 }
 
 /**
  * Parses document.cookie into a name → value map.
  * @returns {Object.<string, string>}
  */
+
 function parseCookies() {
   var result = {};
-  var parts  = document.cookie.split(';');
+
+  // Real cookies
+  var parts = (document.cookie || '').split(';');
   for (var i = 0; i < parts.length; i++) {
     var part = parts[i].trim();
-    var eq   = part.indexOf('=');
+    if (!part) continue;
+    var eq = part.indexOf('=');
     if (eq < 0) continue;
     var key = part.substring(0, eq).trim();
     var val = part.substring(eq + 1).trim();
     if (key) result[key] = decodeURIComponent(val);
   }
+
+  // Fallback cookies (file://)
+  var fb = __getCookieFallbackStore();
+  Object.keys(fb).forEach(function (k) {
+    if (!(k in result)) result[k] = fb[k];
+  });
+
   return result;
 }
 
@@ -79,3 +132,4 @@ function listCookies() {
     };
   });
 }
+
