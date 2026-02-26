@@ -1,0 +1,70 @@
+{
+  "appName": "YouTube (Google)",
+  "description": "YouTube (via Google) collecte diverses catégories d'informations pour personnaliser votre expérience, diffuser des annonces et assurer la sécurité du service.",
+  "policyVersion": "Source : Politique de confidentialité & Vos données dans YouTube",
+  "dataPoints": [
+    {
+      "category": "Identité",
+      "field": "Compte et Profil",
+      "description": "Nom, adresse e‑mail, photo de profil, ainsi que les paramètres de langue, pays et fuseau horaire.",
+      "purpose": "Authentification, personnalisation cross-services et gestion du compte Google.",
+      "sensitivity": "Moyenne"
+    },
+    {
+      "category": "Activité",
+      "field": "Comportement et Interactions",
+      "description": "Historique de visionnage et de recherche, vidéos aimées, playlists, abonnements et interactions avec les Shorts ou Lives.",
+      "purpose": "Alimentation de l'algorithme de recommandation et profilage des intérêts utilisateur.",
+      "sensitivity": "Moyenne"
+    },
+    {
+      "category": "Contenu",
+      "field": "Médias mis en ligne",
+      "description": "Vidéos, titres, miniatures, descriptions, métadonnées et analyse automatique des thèmes du contenu.",
+      "purpose": "Hébergement, diffusion de contenu et détection automatisée d'abus ou de violations des règles.",
+      "sensitivity": "Basse"
+    },
+    {
+      "category": "Technique",
+      "field": "Données d'Appareil",
+      "description": "Type d'appareil, système d'exploitation, adresse IP, journaux système (plantages, performance) et cookies.",
+      "purpose": "Maintenance technique, optimisation, sécurité et lutte contre la fraude.",
+      "sensitivity": "Basse"
+    },
+    {
+      "category": "Localisation",
+      "field": "Géolocalisation",
+      "description": "Localisation approximative (via IP) ou précise via services GPS (si l'autorisation est accordée).",
+      "purpose": "Fourniture de contenu local, gestion des restrictions géographiques et annonces de proximité.",
+      "sensitivity": "Moyenne"
+    },
+    {
+      "category": "Publicité",
+      "field": "Profilage Publicitaire",
+      "description": "Profils d'intérêts déduits, activité sur d'autres services Google et interactions avec les annonces.",
+      "purpose": "Personnalisation du ciblage publicitaire et mesure de l'efficacité des campagnes.",
+      "sensitivity": "Moyenne"
+    },
+    {
+      "category": "Préférences",
+      "field": "Réglages Utilisateur",
+      "description": "Paramètres de confidentialité, préférences de notifications, choix des sous-titres et qualité vidéo par défaut.",
+      "purpose": "Respect des choix de l'utilisateur et configuration de l'interface de navigation.",
+      "sensitivity": "Basse"
+    },
+    {
+      "category": "Social",
+      "field": "Interactions Sociales",
+      "description": "Commentaires, messages en chat direct, participations aux sondages et relations entre comptes.",
+      "purpose": "Gestion des fonctionnalités communautaires et modération des échanges.",
+      "sensitivity": "Moyenne"
+    },
+    {
+      "category": "Support",
+      "field": "Formulaires et Assistance",
+      "description": "Données de formulaires d'annonces, signalements, demandes d'assistance et programmes de monétisation.",
+      "purpose": "Aide aux utilisateurs, traitement des litiges et gestion des partenariats.",
+      "sensitivity": "Moyenne"
+    }
+  ]
+}

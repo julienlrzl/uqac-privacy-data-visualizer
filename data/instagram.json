@@ -1,0 +1,63 @@
+{
+  "appName": "Instagram (Meta)",
+  "description": "Instagram (Meta) collecte vos données de profil, vos interactions sociales et votre activité sur d'autres sites pour construire un profil publicitaire global et entraîner ses modèles d'intelligence artificielle.",
+  "policyVersion": "Source : Politique de confidentialité et explications simplifiées",
+  "dataPoints": [
+    {
+      "category": "Profil",
+      "field": "Compte et Identité",
+      "description": "Nom d’utilisateur, e-mail, téléphone, photo de profil, biographie, genre et paramètres de confidentialité.",
+      "purpose": "Gestion du compte, authentification et configuration des préférences de l'utilisateur.",
+      "sensitivity": "Moyenne"
+    },
+    {
+      "category": "Contenu",
+      "field": "Publications et Médias",
+      "description": "Photos, vidéos, Reels, stories, légendes, hashtags, lieux tagués et filtres ou effets utilisés.",
+      "purpose": "Hébergement, diffusion des contenus sur la plateforme et analyse pour les recommandations personnalisées.",
+      "sensitivity": "Basse"
+    },
+    {
+      "category": "Activité",
+      "field": "Comportement et Réseau",
+      "description": "Historique des posts vus, temps passé, recherches, abonnements, interactions avec les publicités et messages privés (DM).",
+      "purpose": "Personnalisation du fil d'actualité, suggestions de comptes et lutte contre le spam ou les abus dans les messages.",
+      "sensitivity": "Moyenne"
+    },
+    {
+      "category": "Technique",
+      "field": "Données d'Appareil",
+      "description": "Type d’appareil, OS, identifiants d’appareil, adresse IP, cookies de suivi et journaux de navigation (clics, bugs).",
+      "purpose": "Sécurité, maintenance technique, mesure d'audience et reconnaissance automatique de l'utilisateur.",
+      "sensitivity": "Basse"
+    },
+    {
+      "category": "Localisation",
+      "field": "Géolocalisation",
+      "description": "Localisation approximative (IP) ou précise (GPS), ainsi que les lieux visités ou tagués dans les publications.",
+      "purpose": "Affichage de publicités locales, suggestions de lieux et marquage géographique des contenus.",
+      "sensitivity": "Élevée"
+    },
+    {
+      "category": "Tiers",
+      "field": "Partenaires et Traceurs",
+      "description": "Données venant de sites tiers via les pixels et boutons Meta (achats, formulaires) et contacts importés.",
+      "purpose": "Suivi publicitaire en dehors d'Instagram et enrichissement du graphe social pour suggérer des amis.",
+      "sensitivity": "Élevée"
+    },
+    {
+      "category": "Commerce",
+      "field": "Shopping et Paiement",
+      "description": "Produits consultés, wishlist, panier, adresse de livraison et historique des transactions financières.",
+      "purpose": "Gestion des commandes via Instagram Shopping et facilitation des transactions commerciales.",
+      "sensitivity": "Moyenne"
+    },
+    {
+      "category": "IA & Pub",
+      "field": "Profilage et Intelligence Artificielle",
+      "description": "Profil d'intérêts déduits et utilisation des contenus publics pour entraîner les modèles d'IA de Meta.",
+      "purpose": "Ciblage publicitaire ultra-précis et développement de nouvelles technologies d'IA générative.",
+      "sensitivity": "Élevée"
+    }
+  ]
+}

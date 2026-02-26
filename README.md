@@ -39,8 +39,17 @@ uqac-privacy-data-visualizer/
 
 ### Prérequis
 
-Aucune dépendance requise. Le projet utilise uniquement HTML, CSS et JavaScript vanilla.
+L'application utilise l'API fetch() pour charger les fichiers JSON. Pour des raisons de sécurité (politique CORS), elle doit être lancée via un serveur local et non en ouvrant directement le fichier HTML.
+Lancer l'application avec Python
 
----
+Ouvrez un terminal à la racine du projet.
+
+Lancez le serveur avec la commande suivante :
+    Bash
+
+    python -m http.server 8000
+
+Accédez à l'application dans votre navigateur à l'adresse : http://localhost:8000
+
 
 **Note** : Ce projet est à but pédagogique uniquement. Il vise à sensibiliser aux enjeux de la vie privée en ligne, pas à collecter réellement des données utilisateur.

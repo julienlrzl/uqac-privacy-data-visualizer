@@ -1,0 +1,63 @@
+{
+  "appName": "TikTok",
+  "description": "TikTok collecte et analyse massivement vos données pour alimenter son algorithme de recommandation 'Pour toi', personnaliser la publicité et développer ses technologies d'IA.",
+  "policyVersion": "Source : Politique de confidentialité (UE/EEE et Canada)",
+  "dataPoints": [
+    {
+      "category": "Profil",
+      "field": "Inscription et Compte",
+      "description": "Nom d'utilisateur, mot de passe, date de naissance, e-mail, numéro de téléphone et informations provenant de comptes tiers (Google, Apple, etc.).",
+      "purpose": "Création de compte, authentification et communication avec l'utilisateur.",
+      "sensitivity": "Moyenne"
+    },
+    {
+      "category": "Activité",
+      "field": "Contenu et Engagement",
+      "description": "Vidéos publiées, hashtags, musiques, filtres utilisés, commentaires, messages privés, likes, recherches et historique de visionnage précis.",
+      "purpose": "Personnalisation du flux 'Pour toi', recommandations de comptes et modération des contenus.",
+      "sensitivity": "Moyenne"
+    },
+    {
+      "category": "Technique",
+      "field": "Appareil et Réseau",
+      "description": "Modèle du téléphone, système d'exploitation, adresse IP, identifiants publicitaires, Wi-Fi (SSID) et journaux techniques (plantages, clics).",
+      "purpose": "Sécurité, lutte contre la fraude, optimisation des performances et fingerprinting publicitaire.",
+      "sensitivity": "Basse"
+    },
+    {
+      "category": "Localisation",
+      "field": "Géolocalisation",
+      "description": "Localisation approximative via l'IP ou précise (GPS, Bluetooth) si l'autorisation est accordée sur l'appareil.",
+      "purpose": "Contenu localisé, publicité de proximité et déductions sur les habitudes de l'utilisateur.",
+      "sensitivity": "Élevée"
+    },
+    {
+      "category": "Sensible",
+      "field": "Biométrie et Déductions",
+      "description": "Analyse faciale/corporelle/vocale (via caméra et micro) et déduction de catégories sensibles (religion, santé, orientation sexuelle).",
+      "purpose": "Application d'effets visuels, personnalisation avancée et entraînement de modèles d'IA.",
+      "sensitivity": "Élevée"
+    },
+    {
+      "category": "Tracking",
+      "field": "Presse-papiers et Hors-app",
+      "description": "Accès au texte/images copiés (presse-papiers) et données de navigation tierces via le 'Pixel TikTok' (achats, formulaires sur d'autres sites).",
+      "purpose": "Suivi cross-site pour le ciblage publicitaire et mesure de conversion, même sans compte TikTok.",
+      "sensitivity": "Élevée"
+    },
+    {
+      "category": "Commerce",
+      "field": "Transactions et Achats",
+      "description": "Historique d'achats (TikTok Shop), produits consultés, adresse de livraison et modes de paiement.",
+      "purpose": "Gestion des commandes, traitement des transactions et analyse des habitudes d'achat.",
+      "sensitivity": "Moyenne"
+    },
+    {
+      "category": "Partage",
+      "field": "Données Tiers",
+      "description": "Partage des données de profil, d'usage et de navigation avec des prestataires (hébergement, modération) et partenaires publicitaires.",
+      "purpose": "Externalisation de services techniques et enrichissement des profils publicitaires.",
+      "sensitivity": "Moyenne"
+    }
+  ]
+}
