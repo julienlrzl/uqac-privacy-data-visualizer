@@ -79,7 +79,60 @@
         </div>
       </section>
 
-      <section class="section" aria-labelledby="demoTitle">
+      
+      <section class="section" aria-labelledby="logsTitle">
+        <div class="flex justify-between align-center" style="gap:1rem; flex-wrap:wrap;">
+          <div>
+            <h2 id="logsTitle" style="margin:0;">Système de logs</h2>
+            <p class="text-muted mt-sm" style="margin-bottom:0;">
+              Choisis <strong>En direct</strong> (données réelles) ou charge un <strong>fichier de logs</strong> pour rejouer une session.
+            </p>
+          </div>
+
+          <div class="btn-group" style="flex-wrap:wrap;">
+            <label class="btn btn-outline btn-sm" style="display:flex; align-items:center; gap:.5rem;">
+              <input type="radio" name="logMode" id="logModeLive" value="live" checked />
+              En direct
+            </label>
+            <label class="btn btn-outline btn-sm" style="display:flex; align-items:center; gap:.5rem;">
+              <input type="radio" name="logMode" id="logModeFile" value="file" />
+              Des logs
+            </label>
+          </div>
+        </div>
+
+        <div class="cards-grid-2 mt-md">
+          <div class="card">
+            <h3 class="mb-sm">Lecture de logs (dossier)</h3>
+
+            <div class="flex align-center" style="gap:.75rem; flex-wrap:wrap;">
+              <select class="form-input" id="logFileSelect" style="min-width:280px;" disabled>
+                <option value="">— Sélectionne un fichier —</option>
+              </select>
+              <div class="btn-group">
+                <button class="btn btn-outline" id="btnRefreshLogFiles" type="button" disabled>Rafraîchir</button>
+                <button class="btn btn-primary" id="btnLoadLogFile" type="button" disabled>Charger</button>
+              </div>
+            </div>
+
+            <p class="text-muted mt-sm" style="margin-bottom:0;">
+              Source attendue : <code>Frontend/logs/pixel</code> (côté serveur local).
+              <span id="logBackendStatus">Backend logs : #NA</span>
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 class="mb-sm">Information</h3>
+
+            <p class="text-muted mt-sm" style="margin-bottom:0;">
+              Les cookies sont lisibles par la page (même sans pixel) car même navigateur/origine.
+            </p>
+          </div>
+        </div>
+      </section>
+
+
+<section class="section" aria-labelledby="demoTitle">
         <div class="flex justify-between align-center" style="gap:1rem; flex-wrap:wrap;">
           <h2 id="demoTitle" style="margin:0;">Démonstration du pixel</h2>
           <div class="btn-group">

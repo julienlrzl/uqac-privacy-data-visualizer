@@ -47,14 +47,105 @@
 
     btnExpandAll: $("#btnExpandAll"),
     btnCollapseAll: $("#btnCollapseAll"),
+
+    // Logs UI
+    logModeLive: $("#logModeLive"),
+    logModeFile: $("#logModeFile"),
+    logFileSelect: $("#logFileSelect"),
+    btnRefreshLogFiles: $("#btnRefreshLogFiles"),
+    btnLoadLogFile: $("#btnLoadLogFile"),
+    chkAutoLogCookies: $("#chkAutoLogCookies"),
+    logBackendStatus: $("#logBackendStatus"),
   };
 
   const SIZES = [16, 32, 64, 96, 128];
   let sizeIdx = 0;
   let lastPixelUrl = null;
+  let pixelLoaded = false; // becomes true after first pixel request
 
   const PIXEL_DATA_URL =
     "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+
+  // ---- Logs (local backend) ----
+  const LOG_API_BASE = "/api/pixel-logs";
+  let dataMode = "live";     // "live" | "file"
+  let loadedLog = null;      // { key, created_at, fields: {field:value}, meta: {...}, cookie: {...} }
+
+  async function apiJson(url, options) {
+    const res = await fetch(url, options);
+    const ct = (res.headers.get("content-type") || "").toLowerCase();
+    const body = ct.includes("application/json") ? await res.json().catch(() => null) : await res.text().catch(() => "");
+    if (!res.ok) {
+      const msg = typeof body === "string" ? body : (body?.error || res.statusText);
+      throw new Error(msg || `HTTP ${res.status}`);
+    }
+    return body;
+  }
+
+  async function checkLogsBackend() {
+    try {
+      const out = await apiJson(LOG_API_BASE, { method: "GET" });
+      if (els.logBackendStatus) els.logBackendStatus.textContent = "Backend logs : OK";
+      return out;
+    } catch (e) {
+      if (els.logBackendStatus) els.logBackendStatus.textContent = "Backend logs : indisponible";
+      return null;
+    }
+  }
+
+  function setLogsUiEnabled(enabled) {
+    if (!els.logFileSelect) return;
+    els.logFileSelect.disabled = !enabled;
+    els.btnRefreshLogFiles.disabled = !enabled;
+    els.btnLoadLogFile.disabled = !enabled;
+  }
+
+  function setMode(mode) {
+    dataMode = mode === "file" ? "file" : "live";
+    if (dataMode === "live") loadedLog = null;
+    setLogsUiEnabled(dataMode === "file");
+    logEvent("LOG_MODE", dataMode === "live" ? "Mode 'En direct'." : "Mode 'Des logs'.");
+    renderFieldsTable();
+  }
+
+  async function refreshLogFiles() {
+    const list = await apiJson(LOG_API_BASE, { method: "GET" });
+    const files = Array.isArray(list?.files) ? list.files : [];
+    els.logFileSelect.innerHTML = `<option value="">— Sélectionne un fichier —</option>`;
+    for (const f of files) {
+      const opt = document.createElement("option");
+      opt.value = f.name;
+      opt.textContent = f.name;
+      els.logFileSelect.appendChild(opt);
+    }
+    return files;
+  }
+
+  async function loadSelectedLog() {
+    const name = els.logFileSelect?.value || "";
+    if (!name) return;
+    const data = await apiJson(`${LOG_API_BASE}/${encodeURIComponent(name)}`, { method: "GET" });
+    loadedLog = data;
+    logEvent("LOG_LOADED", `Fichier chargé : ${name}`);
+    renderFieldsTable();
+  }
+
+  function getFieldValue(def) {
+    if (dataMode === "file") {
+      const v = loadedLog?.fields?.[def.field];
+      return v == null ? NA : v;
+    }
+    // live
+    // Note: cookies are technically readable even without loading a tracking pixel (same origin).
+    // For the demo, we mask cookie-related fields until the user explicitly triggers the pixel.
+    if (!pixelLoaded && (def.field === "cookies_present")) {
+      return "(Masqué) Charge le pixel pour afficher";
+    }
+    let v = null;
+    try { v = def.get(); } catch { v = null; }
+    return asText(v);
+  }
+
 
   function tsClock() {
     const d = new Date();
@@ -358,13 +449,11 @@
     const sort = els.fieldSort?.value || "none";
 
     let rows = FIELD_DEFS.map((d, idx) => {
-      let v = null;
-      try { v = d.get(); } catch { v = null; }
       return {
         idx,
         category: d.category,
         field: d.field,
-        valueText: asText(v),
+        valueText: getFieldValue(d),
         source: d.source,
         sensitivity: d.sensitivity,
         whyNormal: d.whyNormal || NA,
@@ -473,12 +562,11 @@
 
   function exportJson() {
     const rows = FIELD_DEFS.map((d) => {
-      let v = null;
-      try { v = d.get(); } catch { v = null; }
+      const valueText = getFieldValue(d);
       return {
         category: categoryLabel(d.category),
         field: d.field,
-        value: asText(v),
+        value: valueText,
         source: d.source,
         sensitivity: d.sensitivity,
         why_normal: d.whyNormal || NA,
@@ -502,12 +590,11 @@
     const lines = [header.join(",")];
 
     for (const d of FIELD_DEFS) {
-      let v = null;
-      try { v = d.get(); } catch { v = null; }
+      const valueText = getFieldValue(d);
       const row = [
         categoryLabel(d.category),
         d.field,
-        asText(v),
+        valueText,
         d.source,
         d.sensitivity,
         d.whyNormal || NA,
@@ -565,6 +652,8 @@
 
   function firePixel() {
     lastPixelUrl = buildPixelUrl();
+    pixelLoaded = true;
+    triggerActionLog("PIXEL_FIRE");
 
     els.pixelUrlLabel.textContent = lastPixelUrl;
     els.netUrl.textContent = lastPixelUrl;
@@ -599,10 +688,82 @@
     els.pixelImg.src = PIXEL_DATA_URL;
   }
 
+
+  // ---- Cookie change logging ----
+  let lastCookieRaw = null;
+
+  function snapshotForLog(tsMs) {
+    const fields = {};
+    for (const d of FIELD_DEFS) {
+      // force live evaluation for logging
+      let v = null;
+      try { v = d.get(); } catch { v = null; }
+      fields[d.field] = asText(v);
+    }
+
+    return {
+      key: `pixel-${tsMs}`,
+      created_at: new Date(tsMs).toISOString(),
+      page_url: location.href,
+      referrer: document.referrer || NA,
+      user_agent: navigator.userAgent || NA,
+      language: navigator.language || NA,
+      timezone: (() => { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || NA; } catch { return NA; } })(),
+      cookies_raw: (document.cookie || ""),
+      cookies_names: cookieNames(),
+      fields,
+    };
+  }
+
+
+  function triggerActionLog(triggerName) {
+    // Always log on key user actions (refresh / pixel fire), independent of cookie watcher checkbox.
+    const ts = Date.now();
+    const payload = snapshotForLog(ts);
+    payload.meta = {
+      trigger: triggerName,
+    };
+    logEvent("LOG_TRIGGER", `Action '${triggerName}' → enregistrement ${payload.key}`);
+    writeLogToBackend(payload);
+  }
+
+
+  async function writeLogToBackend(payload) {
+    try {
+      await apiJson(LOG_API_BASE, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      logEvent("LOG_SAVED", `Log écrit : ${payload.key}.json`);
+    } catch (e) {
+      logEvent("LOG_ERROR", `Impossible d'écrire le log (backend) : ${e.message || e}`);
+    }
+  }
+
+  function startCookieWatcher() {
+    lastCookieRaw = document.cookie || "";
+    setInterval(() => {
+      if (!els.chkAutoLogCookies?.checked) return;
+      if (dataMode !== "live") return;
+      const nowCookie = document.cookie || "";
+      if (nowCookie === lastCookieRaw) return;
+
+      lastCookieRaw = nowCookie;
+      const ts = Date.now();
+      const payload = snapshotForLog(ts);
+      logEvent("COOKIE_CHANGED", `Cookie modifié → enregistrement ${payload.key}`);
+      writeLogToBackend(payload);
+    }, 800);
+  }
+
+
   function bind() {
     els.pixelImg.src = PIXEL_DATA_URL;
     els.pixelStatus.textContent = "inactif";
     setSizeIdx(0);
+    setLogsUiEnabled(false);
+    setMode("live");
 
     document.addEventListener("click", (e) => {
       behaviorState.clickCount += 1;
@@ -640,6 +801,7 @@
     els.btnRefreshPerf.addEventListener("click", () => {
       refreshPerfTimings();
       renderFieldsTable();
+      triggerActionLog("REFRESH");
     });
 
     els.fieldSearch?.addEventListener("input", renderFieldsTable);
@@ -661,6 +823,24 @@
     els.btnExpandAll?.addEventListener("click", () => openAllDetails(true));
     els.btnCollapseAll?.addEventListener("click", () => openAllDetails(false));
 
+    // Logs UI
+    els.logModeLive?.addEventListener("change", () => {
+      if (els.logModeLive.checked) setMode("live");
+    });
+    els.logModeFile?.addEventListener("change", async () => {
+      if (els.logModeFile.checked) {
+        setMode("file");
+        await refreshLogFiles().catch(() => {});
+      }
+    });
+    els.btnRefreshLogFiles?.addEventListener("click", async () => {
+      await refreshLogFiles().catch(() => {});
+    });
+    els.btnLoadLogFile?.addEventListener("click", async () => {
+      await loadSelectedLog().catch(() => {});
+    });
+
+
     // init preview
     els.netUA.textContent = navigator.userAgent || NA;
     els.netLang.textContent = navigator.language || NA;
@@ -670,6 +850,22 @@
 
     renderFieldsTable();
     logEvent("INIT", "Pixel Tracker prêt. Clique sur 'Charger le pixel'.");
+
+    // Backend availability (non bloquant)
+    checkLogsBackend().then((x) => {
+      const ok = !!x;
+      if (els.logBackendStatus) {
+        els.logBackendStatus.textContent = ok
+          ? "Backend logs : OK"
+          : "Backend logs : indisponible";
+      }
+      if (!ok && els.logModeFile) {
+        els.logModeLive.checked = true;
+        els.logModeFile.checked = false;
+      }
+    });
+
+    startCookieWatcher();
   }
 
   if (document.readyState === "loading") {
