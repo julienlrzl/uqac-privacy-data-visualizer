@@ -26,7 +26,7 @@ uqac-privacy-data-visualizer/
 ├── pages/
 │   ├── cookies.html                → Gestion du consentement cookies
 │   ├── pixel-tracker.html          → Simulation de pixel de tracking
-│   ├── politiques.html             → Analyse des politiques de confidentialité
+│   ├── politiques.html             → Analyse des politiques de confidentialité (nécessite serveur)
 │   └── exemple-plateforme.html     → Cas d’usage : Data Broker (type Palantir)
 │
 ├── assets/
@@ -37,7 +37,7 @@ uqac-privacy-data-visualizer/
 │       ├── storage.js              → Gestion cookies + fallback localStorage
 │       ├── consent.js              → Gestion des préférences utilisateur
 │       ├── pixel.js                → Simulation du pixel tracker
-│       ├── politiques.js           → Affichage des politiques
+│       ├── politiques.js           → Chargement des JSON politiques (fetch)
 │       └── palantir-demo.js        → Tableau dynamique des cookies (cas d’usage)
 │
 ├── data/
@@ -58,24 +58,17 @@ uqac-privacy-data-visualizer/
 - Création de cookies selon les choix utilisateur
 - Catégories : essentiels, analytics, marketing
 - Tableau dynamique des cookies observables
-
-### 🔹 Fallback `file://` (mode démo)
-En ouverture locale (`file://`), certains navigateurs bloquent les cookies.  
-Le projet utilise donc un **fallback localStorage** pour simuler leur présence.
-
-➡️ Aucun cookie réel n’est envoyé à un serveur.
+- Fallback localStorage en mode `file://`
 
 ### 🔹 Pixel Tracker
 - Simulation d’un pixel invisible
 - Génération d’un identifiant unique
 - Illustration du tracking cross-page
 
-### 🔹 Politiques de confidentialité
+### 🔹 Politiques de confidentialité ⚠️
 - Analyse structurée de plateformes (Instagram, TikTok, YouTube)
-- Données collectées
-- Finalités
-- Durées de conservation
-- Partage avec des tiers
+- Chargement des données depuis des fichiers JSON
+- **Nécessite un serveur local** (les navigateurs bloquent `fetch()` en `file://`)
 
 ### 🔹 Cas d’usage : Data Broker (type Palantir)
 - Scénario de corrélation de données
@@ -89,7 +82,7 @@ Le projet utilise donc un **fallback localStorage** pour simuler leur présence.
 ## 🚀 Lancer le projet
 
 ### Option 1 — Recommandé (serveur local)
-Permet un comportement normal des cookies :
+Permet le fonctionnement complet du projet (cookies + politiques) :
 
 ```bash
 python3 -m http.server 8000
@@ -104,9 +97,13 @@ http://localhost:8000
 ### Option 2 — Mode démo (`file://`)
 Ouvrir directement `index.html`.
 
-Dans ce cas :
-- les cookies réels peuvent être bloqués
-- le projet utilise automatiquement un fallback via `localStorage`
+Fonctionne pour :
+- Cookies
+- Pixel tracker
+- Cas d’usage data broker
+
+Ne fonctionne pas pour :
+- ❌ Page **Politiques** (chargement JSON bloqué par le navigateur)
 
 ---
 
@@ -144,8 +141,8 @@ Objectif : sensibilisation aux mécanismes de collecte et de valorisation des do
 
 - HTML5 / CSS3
 - JavaScript (vanilla)
-- localStorage (fallback cookies)
-- JSON pour la simulation de données plateformes
+- localStorage (fallback cookies en mode démo)
+- JSON pour la simulation des politiques plateformes
 
 ---
 
