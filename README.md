@@ -6,14 +6,6 @@ Ce projet simule le fonctionnement de technologies de tracking et de monétisati
 
 ---
 
-## 🎬 Vidéo de présentation
-
-<video src="video/video_presentation.mp4" controls width="100%">
-  Votre navigateur ne supporte pas la lecture de vidéos HTML5.
-</video>
-
----
-
 ## 🎯 Objectifs pédagogiques
 
 - Comprendre le rôle des cookies et du consentement
