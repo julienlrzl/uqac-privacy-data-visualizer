@@ -6,6 +6,14 @@ Ce projet simule le fonctionnement de technologies de tracking et de monétisati
 
 ---
 
+## 🎬 Vidéo de présentation
+
+<video src="video/video_presentation.mp4" controls width="100%">
+  Votre navigateur ne supporte pas la lecture de vidéos HTML5.
+</video>
+
+---
+
 ## 🎯 Objectifs pédagogiques
 
 - Comprendre le rôle des cookies et du consentement
@@ -46,6 +54,9 @@ uqac-privacy-data-visualizer/
 │   ├── tiktok.json
 │   └── youtube.json
 │
+├── video/
+│   └── video_presentation.mp4      → Vidéo de présentation du projet
+│
 └── README.md
 ```
 
@@ -54,6 +65,7 @@ uqac-privacy-data-visualizer/
 ## 🧪 Fonctionnalités principales
 
 ### 🔹 Cookies & Consentement
+
 - Bannière de consentement simulée
 - Création de cookies selon les choix utilisateur
 - Catégories : essentiels, analytics, marketing
@@ -61,16 +73,19 @@ uqac-privacy-data-visualizer/
 - Fallback localStorage en mode `file://`
 
 ### 🔹 Pixel Tracker
+
 - Simulation d’un pixel invisible
 - Génération d’un identifiant unique
 - Illustration du tracking cross-page
 
 ### 🔹 Politiques de confidentialité ⚠️
+
 - Analyse structurée de plateformes (Instagram, TikTok, YouTube)
 - Chargement des données depuis des fichiers JSON
 - **Nécessite un serveur local** (les navigateurs bloquent `fetch()` en `file://`)
 
 ### 🔹 Cas d’usage : Data Broker (type Palantir)
+
 - Scénario de corrélation de données
 - Données observables côté navigateur
 - Implications (durée de conservation, monétisation)
@@ -82,6 +97,7 @@ uqac-privacy-data-visualizer/
 ## 🚀 Lancer le projet
 
 ### Option 1 — Recommandé (serveur local)
+
 Permet le fonctionnement complet du projet (cookies + politiques) :
 
 ```bash
@@ -95,14 +111,17 @@ http://localhost:8000
 ```
 
 ### Option 2 — Mode démo (`file://`)
+
 Ouvrir directement `index.html`.
 
 Fonctionne pour :
+
 - Cookies
 - Pixel tracker
 - Cas d’usage data broker
 
 Ne fonctionne pas pour :
+
 - ❌ Page **Politiques** (chargement JSON bloqué par le navigateur)
 
 ---
@@ -119,6 +138,7 @@ Ne fonctionne pas pour :
 ## ⚖️ Cadre légal (RGPD)
 
 Le projet illustre :
+
 - le principe de consentement
 - la limitation des finalités
 - la minimisation des données
@@ -166,48 +186,59 @@ Ces mécanismes permettent de simuler la construction d’un profil utilisateur 
 Les données générées et visibles dans l’interface :
 
 ### Cookies
+
 - Identifiant unique (`id_xxxxx`)
 - Catégorie (essentiel, analytics, marketing)
 - Durée de vie simulée
 - Valeur partielle affichée (preview)
 
 Moment de collecte :
+
 - Lors du choix de consentement
 - Lors de la navigation entre pages
 
 Mécanisme :
+
 - `document.cookie`
 - fallback `localStorage` en mode démo
 
 ---
 
 ### Pixel tracker
+
 - Génération d’un identifiant unique
 - Horodatage de l’événement
 - Simulation d’un événement de visite
 
 Moment :
+
 - Chargement de la page pixel
 
 Mécanisme :
+
 - Création d’un identifiant + stockage local
 
 ---
 
 ### Cas d’usage Data Broker
+
 Données corrélées :
+
 - Identifiant cookie
 - Type de consentement
 - Catégorie marketing / analytics
 - Horodatage
 
 Objectif :
+
 - Montrer la reconstruction d’un profil à partir de plusieurs sources.
 
 ---
 
 ### Politiques de confidentialité
+
 Données simulées issues des JSON :
+
 - Types de données collectées
 - Finalités
 - Durées de conservation
@@ -226,6 +257,7 @@ Ces données permettent :
 - la reconstitution d’un historique de navigation
 
 Dans un contexte réel, un data broker pourrait :
+
 - relier ces identifiants à d’autres bases de données
 - enrichir le profil avec des données externes
 - vendre ou partager ce profil.
@@ -235,57 +267,67 @@ Dans un contexte réel, un data broker pourrait :
 ## 🧪 Scénarios reproductibles
 
 ### Scénario 1 — Refus des cookies
+
 1. Ouvrir `index.html`
 2. Cliquer sur **Refuser**
-3. Aller sur la page *Cookies*
+3. Aller sur la page _Cookies_
 4. Observer le nombre limité de cookies
 5. Recharger la page
 
 Résultat attendu :
+
 - uniquement les cookies essentiels
 
 ---
 
 ### Scénario 2 — Acceptation complète
+
 1. Ouvrir `index.html`
 2. Cliquer sur **Tout accepter**
-3. Aller sur la page *Cookies*
+3. Aller sur la page _Cookies_
 4. Observer les cookies marketing et analytics
 5. Recharger la page
 
 Résultat attendu :
+
 - plus grand nombre de cookies
 - identifiants persistants
 
 ---
 
 ### Scénario 3 — Pixel tracker
-1. Aller sur la page *Pixel tracker*
+
+1. Aller sur la page _Pixel tracker_
 2. Recharger la page
 3. Observer l’identifiant généré
 
 Résultat :
+
 - création d’un identifiant unique horodaté
 
 ---
 
 ### Scénario 4 — Corrélation Data Broker
+
 1. Accepter les cookies marketing
-2. Aller sur la page *Cas d’usage*
+2. Aller sur la page _Cas d’usage_
 3. Cliquer sur **Rafraîchir**
 4. Observer les cookies corrélés
 
 Résultat :
+
 - profil simulé construit à partir des données locales
 
 ---
 
 ### Scénario 5 — Politiques (nécessite serveur local)
+
 1. Lancer `python3 -m http.server 8000`
 2. Ouvrir `http://localhost:8000/pages/politiques.html`
 3. Sélectionner une plateforme
 
 Résultat :
+
 - affichage des données collectées et finalités
 
 ---
